@@ -1,9 +1,30 @@
 function Footer() {
   return (
     <footer className="footer">
-      <h2>NEXORA</h2>
+      <div className="footer-grid">
+        <div>
+          <h2>NEXORA</h2>
+          <p>Future streetwear experience.</p>
+        </div>
 
-      <p>© 2026 - Tous droits réservés</p>
+        <div>
+          <h3>Boutique</h3>
+          <p>Hoodies</p>
+          <p>T-shirts</p>
+          <p>Accessoires</p>
+        </div>
+
+        <div>
+          <h3>Support</h3>
+          <p>Contact</p>
+          <p>Livraison</p>
+          <p>Retours</p>
+        </div>
+      </div>
+
+      <div className="footer-bottom">
+        © 2026 NEXORA — Tous droits réservés
+      </div>
     </footer>
   );
 }

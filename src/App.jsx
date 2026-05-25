@@ -1,16 +1,35 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Products from "./components/Products";
-import Footer from "./components/Footer";
+import {
+  Routes,
+  Route
+} from "react-router-dom";
+
+import Home from "./pages/Home";
+import Product from "./pages/Product";
+import Checkout from "./pages/Checkout";
 
 function App() {
+
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Products />
-      <Footer />
-    </>
+
+    <Routes>
+
+      <Route
+        path="/"
+        element={<Home />}
+      />
+
+      <Route
+        path="/product/:id"
+        element={<Product />}
+      />
+
+      <Route
+        path="/checkout"
+        element={<Checkout />}
+      />
+
+    </Routes>
+
   );
 }
 
