@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Cart({
   cart,
   isCartOpen,
@@ -7,30 +9,47 @@ function Cart({
 }) {
 
   const total = cart.reduce((acc, item) => {
-    return acc + parseFloat(item.price);
+
+    const cleanPrice =
+      item.price.replace(",", ".").replace("€", "");
+
+    return acc + parseFloat(cleanPrice);
+
   }, 0);
 
   return (
     <>
 
+      {/* OVERLAY */}
+
       {isCartOpen && (
+
         <div
           className="overlay-cart"
           onClick={() => setIsCartOpen(false)}
         ></div>
+
       )}
+
+      {/* DRAWER */}
 
       <div className={`cart-drawer ${isCartOpen ? "open" : ""}`}>
 
+        {/* HEADER */}
+
         <div className="cart-header">
 
-          <h2>Votre Panier</h2>
+          <h2>
+            Votre Panier
+          </h2>
 
           <button onClick={() => setIsCartOpen(false)}>
             ✕
           </button>
 
         </div>
+
+        {/* PRODUCTS */}
 
         <div className="cart-products">
 
@@ -44,7 +63,10 @@ function Cart({
 
             cart.map((item, index) => (
 
-              <div className="cart-item" key={index}>
+              <div
+                className="cart-item"
+                key={index}
+              >
 
                 <img
                   src={item.image}
@@ -53,9 +75,55 @@ function Cart({
 
                 <div className="cart-item-info">
 
-                  <h4>{item.title}</h4>
+                  <h4>
+                    {item.title}
+                  </h4>
 
-                  <p>{item.price}</p>
+                  <p>
+                    {item.price}
+                  </p>
+
+                  {/* SIZE */}
+
+                  {item.selectedSize && (
+
+                    <span className="cart-detail">
+
+                      Taille :
+                      {" "}
+                      {item.selectedSize}
+
+                    </span>
+
+                  )}
+
+                  {/* COLOR */}
+
+                  {item.selectedColor && (
+
+                    <span className="cart-detail">
+
+                      Couleur :
+                      {" "}
+                      {item.selectedColor}
+
+                    </span>
+
+                  )}
+
+                  {/* QUANTITY */}
+
+                  {item.quantity && (
+
+                    <span className="cart-detail">
+
+                      Quantité :
+                      {" "}
+                      {item.quantity}
+
+                    </span>
+
+                  )}
 
                   <button
                     className="remove-btn"
@@ -76,15 +144,25 @@ function Cart({
 
         </div>
 
+        {/* FOOTER */}
+
         <div className="cart-footer">
 
           <h3>
-            Total : {total.toFixed(2)}€
+            Total :
+            {" "}
+            {total.toFixed(2)}€
           </h3>
 
-          <button className="checkout-btn">
-            Checkout
-          </button>
+          <Link to="/checkout">
+
+            <button className="checkout-btn">
+
+              Checkout
+
+            </button>
+
+          </Link>
 
           {cart.length > 0 && (
 

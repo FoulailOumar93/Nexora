@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   Routes,
   Route
@@ -6,31 +8,242 @@ import {
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Support from "./pages/Support";
+import Boutique from "./pages/Boutique";
+
+import Cart from "./components/Cart";
 
 function App() {
 
+  /* =========================
+     CART STATE
+  ========================= */
+
+  const [cart, setCart] = useState(() => {
+
+    const savedCart =
+      localStorage.getItem("nexoraCart");
+
+    return savedCart
+      ? JSON.parse(savedCart)
+      : [];
+
+  });
+
+  /* =========================
+     CART DRAWER
+  ========================= */
+
+  const [isCartOpen, setIsCartOpen] =
+    useState(false);
+
+  /* =========================
+     NOTIFICATION
+  ========================= */
+
+  const [notification, setNotification] =
+    useState("");
+
+  /* =========================
+     SAVE CART
+  ========================= */
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "nexoraCart",
+      JSON.stringify(cart)
+    );
+
+  }, [cart]);
+
+  /* =========================
+     ADD TO CART
+  ========================= */
+
+  const addToCart = (product) => {
+
+    setCart((prevCart) => [
+
+      ...prevCart,
+      product
+
+    ]);
+
+    setNotification(
+      `${product.title} ajouté au panier`
+    );
+
+    setTimeout(() => {
+
+      setNotification("");
+
+    }, 2500);
+
+  };
+
+  /* =========================
+     REMOVE ITEM
+  ========================= */
+
+  const removeFromCart = (
+    indexToRemove
+  ) => {
+
+    const updatedCart =
+      cart.filter(
+
+        (_, index) =>
+          index !== indexToRemove
+
+      );
+
+    setCart(updatedCart);
+
+  };
+
+  /* =========================
+     CLEAR CART
+  ========================= */
+
+  const clearCart = () => {
+
+    setCart([]);
+
+  };
+
   return (
 
-    <Routes>
+    <>
 
-      <Route
-        path="/"
-        element={<Home />}
+      {/* =========================
+          NOTIFICATION
+      ========================= */}
+
+      {notification && (
+
+        <div className="notification">
+
+          {notification}
+
+        </div>
+
+      )}
+
+      {/* =========================
+          ROUTES
+      ========================= */}
+
+      <Routes>
+
+        {/* HOME */}
+
+        <Route
+          path="/"
+          element={
+            <Home
+              cartCount={cart.length}
+              setIsCartOpen={
+                setIsCartOpen
+              }
+              addToCart={addToCart}
+            />
+          }
+        />
+
+        {/* PRODUCT */}
+
+        <Route
+          path="/product/:id"
+          element={
+            <Product
+              cartCount={cart.length}
+              setIsCartOpen={
+                setIsCartOpen
+              }
+              addToCart={addToCart}
+            />
+          }
+        />
+
+        {/* BOUTIQUE - TOUS LES PRODUITS */}
+
+        <Route
+          path="/boutique"
+          element={
+            <Boutique
+              cartCount={cart.length}
+              setIsCartOpen={
+                setIsCartOpen
+              }
+              addToCart={addToCart}
+            />
+          }
+        />
+
+        {/* BOUTIQUE - CATEGORIES */}
+
+        <Route
+          path="/boutique/:category"
+          element={
+            <Boutique
+              cartCount={cart.length}
+              setIsCartOpen={
+                setIsCartOpen
+              }
+              addToCart={addToCart}
+            />
+          }
+        />
+
+        {/* CHECKOUT */}
+
+        <Route
+          path="/checkout"
+          element={<Checkout />}
+        />
+
+        {/* LOGIN */}
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        {/* REGISTER */}
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        {/* SUPPORT */}
+
+        <Route
+          path="/support"
+          element={<Support />}
+        />
+
+      </Routes>
+
+      {/* =========================
+          CART
+      ========================= */}
+
+      <Cart
+        cart={cart}
+        isCartOpen={isCartOpen}
+        setIsCartOpen={setIsCartOpen}
+        removeFromCart={removeFromCart}
+        clearCart={clearCart}
       />
 
-      <Route
-        path="/product/:id"
-        element={<Product />}
-      />
-
-      <Route
-        path="/checkout"
-        element={<Checkout />}
-      />
-
-    </Routes>
+    </>
 
   );
+
 }
 
 export default App;
