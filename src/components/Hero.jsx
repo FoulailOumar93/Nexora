@@ -4,45 +4,20 @@ function Hero() {
 
     <section className="hero">
 
-      {/* IMAGE */}
+      <picture>
 
-      <img
-        src="/images/Nexora-Banner.png"
-        alt="Nexora Summer Collection"
-        className="hero-banner-image"
-      />
+        <source
+          media="(max-width:768px)"
+          srcSet="/images/Nexora-Banner-Mobile.png"
+        />
 
-      {/* OVERLAY */}
+        <img
+          src="/images/Nexora-Banner.png"
+          alt="Nexora Banner"
+          className="hero-banner-image"
+        />
 
-      <div className="overlay"></div>
-
-      {/* CONTENT */}
-
-      <div className="hero-content">
-
-        <p>
-
-          NOUVELLE COLLECTION
-
-        </p>
-
-        <h2>
-
-          AFFIRME TON <br />
-
-          STYLE
-
-        </h2>
-
-        <span>
-
-          Des vêtements modernes
-          pour ceux qui veulent
-          se démarquer.
-
-        </span>
-
-      </div>
+      </picture>
 
     </section>
 

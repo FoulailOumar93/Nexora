@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import Products from "../components/Products";
@@ -127,6 +127,17 @@ function Boutique({
           </p>
 
         </section>
+
+        {/* =========================
+            BACK BUTTON
+        ========================= */}
+
+        <Link
+          to="/"
+          className="back-link"
+        >
+          ← Retour à l'accueil
+        </Link>
 
         {/* =========================
             PRODUCTS
