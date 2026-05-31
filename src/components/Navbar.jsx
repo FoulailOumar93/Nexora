@@ -30,16 +30,8 @@ function Navbar({
 
   const navigate = useNavigate();
 
-  /* =========================
-     DROPDOWN
-  ========================= */
-
   const [isDropdownOpen, setIsDropdownOpen] =
     useState(false);
-
-  /* =========================
-     SEARCH
-  ========================= */
 
   const safeSearch =
     typeof searchQuery === "string"
@@ -59,10 +51,6 @@ function Navbar({
 
     <nav className="navbar">
 
-      {/* =========================
-          LOGO
-      ========================= */}
-
       <Link
         to="/"
         className="logo-container"
@@ -77,28 +65,18 @@ function Navbar({
         <div>
 
           <h1 className="logo">
-
             NEXORA
-
           </h1>
 
           <p className="logo-subtitle">
-
             Fashion • Streetwear • Lifestyle
-
           </p>
 
         </div>
 
       </Link>
 
-      {/* =========================
-          NAVIGATION
-      ========================= */}
-
       <ul className="nav-links">
-
-        {/* HOME */}
 
         <li>
 
@@ -107,8 +85,6 @@ function Navbar({
           </Link>
 
         </li>
-
-        {/* SHOP */}
 
         <li className="dropdown-nav">
 
@@ -143,9 +119,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Tous les produits
-
               </Link>
 
               <Link
@@ -154,9 +128,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Hoodies
-
               </Link>
 
               <Link
@@ -165,9 +137,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 T-Shirts
-
               </Link>
 
               <Link
@@ -176,9 +146,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Chemises
-
               </Link>
 
               <Link
@@ -187,9 +155,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Pantalons
-
               </Link>
 
               <Link
@@ -198,9 +164,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Chaussures
-
               </Link>
 
               <Link
@@ -209,9 +173,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Sacs
-
               </Link>
 
               <Link
@@ -220,9 +182,16 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Sarees
+              </Link>
 
+              <Link
+                to="/boutique/churidar"
+                onClick={() =>
+                  setIsDropdownOpen(false)
+                }
+              >
+                Churidar
               </Link>
 
               <Link
@@ -231,9 +200,7 @@ function Navbar({
                   setIsDropdownOpen(false)
                 }
               >
-
                 Veshti
-
               </Link>
 
             </div>
@@ -241,8 +208,6 @@ function Navbar({
           )}
 
         </li>
-
-        {/* SUPPORT */}
 
         <li>
 
@@ -254,13 +219,7 @@ function Navbar({
 
       </ul>
 
-      {/* =========================
-          RIGHT SIDE
-      ========================= */}
-
       <div className="nav-icons">
-
-        {/* SEARCH */}
 
         <div className="search-wrapper">
 
@@ -280,8 +239,6 @@ function Navbar({
             />
 
           </div>
-
-          {/* SEARCH RESULTS */}
 
           {safeSearch && (
 
@@ -314,15 +271,11 @@ function Navbar({
                       <div>
 
                         <h4>
-
                           {product.title}
-
                         </h4>
 
                         <p>
-
                           {product.price}€
-
                         </p>
 
                       </div>
@@ -335,9 +288,7 @@ function Navbar({
               ) : (
 
                 <p className="no-suggestion">
-
                   Aucun résultat
-
                 </p>
 
               )}
@@ -348,22 +299,16 @@ function Navbar({
 
         </div>
 
-        {/* USER */}
-
         {user ? (
 
           <div className="user-box">
 
             <span>
-
               Bonjour {user.name}
-
             </span>
 
             <button onClick={logout}>
-
               Logout
-
             </button>
 
           </div>
@@ -381,8 +326,6 @@ function Navbar({
 
         )}
 
-        {/* CART */}
-
         <div
           className="cart-icon"
           onClick={() =>
@@ -393,9 +336,7 @@ function Navbar({
           <FaShoppingBag />
 
           <span className="cart-count">
-
             {cartCount}
-
           </span>
 
         </div>
@@ -405,6 +346,7 @@ function Navbar({
     </nav>
 
   );
+
 }
 
 export default Navbar;

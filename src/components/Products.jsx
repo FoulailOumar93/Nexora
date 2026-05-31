@@ -14,21 +14,66 @@ function Products({
 
   const categoryTitles = {
 
-    hoodies: "Hoodies",
+    hoodies: "Collection Hoodies",
 
-    tshirts: "T-Shirts",
+    tshirts: "Collection T-Shirts",
 
-    chemises: "Chemises",
+    chemises: "Collection Chemises",
 
-    pantalons: "Pantalons",
+    pantalons: "Collection Pantalons",
 
-    chaussures: "Chaussures",
+    chaussures: "Collection Chaussures",
 
-    sacs: "Sacs",
+    sacs: "Nexora Luxury Handbag Collection",
 
-    sarees: "Sarees",
+    sarees: "Nexora Saree Collections",
 
-    veshti: "Veshti"
+    "kanjivaram-silk":
+      "Nexora Kanjivaram Silk Collection",
+
+    "cotton-silk":
+      "Nexora Cotton Saree Collection",
+
+    "arani-silk":
+      "Nexora Arani Silk Bridal Collection",
+
+    "mysore-silk":
+      "Nexora Mysore Silk Festive Collection",
+
+    churidar:
+      "Nexora Churidar Collection",
+
+    veshti:
+      "Nexora Veshti Collection"
+
+  };
+
+  /* =========================
+     CATEGORY DESCRIPTIONS
+  ========================= */
+
+  const categoryDescriptions = {
+
+    sarees:
+      "Découvrez toutes les collections Saree Nexora inspirées du savoir-faire indien.",
+
+    "kanjivaram-silk":
+      "L'élégance intemporelle des Kanjivaram Silk Sarees.",
+
+    "cotton-silk":
+      "Légèreté, confort et élégance au quotidien.",
+
+    "arani-silk":
+      "Collection mariage Arani Silk inspirée du Tamil Nadu.",
+
+    "mysore-silk":
+      "Couleurs festives et raffinement du Mysore Silk.",
+
+    churidar:
+      "Tradition et modernité dans une collection Churidar élégante.",
+
+    veshti:
+      "Le style traditionnel tamoul revisité par Nexora."
 
   };
 
@@ -46,11 +91,37 @@ function Products({
             searchQuery.toLowerCase()
           );
 
-      const matchesCategory =
-        selectedCategory
-          ? product.category ===
-            selectedCategory
-          : true;
+      let matchesCategory = true;
+
+      if (selectedCategory) {
+
+        if (
+          selectedCategory === "sarees"
+        ) {
+
+          matchesCategory =
+
+            product.category ===
+              "kanjivaram-silk" ||
+
+            product.category ===
+              "cotton-silk" ||
+
+            product.category ===
+              "arani-silk" ||
+
+            product.category ===
+              "mysore-silk";
+
+        } else {
+
+          matchesCategory =
+            product.category ===
+            selectedCategory;
+
+        }
+
+      }
 
       return (
         matchesSearch &&
@@ -69,6 +140,16 @@ function Products({
           selectedCategory
         ] || "Collection"
       : "NOS PRODUITS";
+
+  /* =========================
+     PAGE DESCRIPTION
+  ========================= */
+
+  const pageDescription =
+    categoryDescriptions[
+      selectedCategory
+    ] ||
+    "Découvrez la collection premium Nexora.";
 
   return (
 
@@ -90,8 +171,7 @@ function Products({
 
         <p>
 
-          Découvrez la collection
-          premium Nexora.
+          {pageDescription}
 
         </p>
 
@@ -146,6 +226,7 @@ function Products({
     </section>
 
   );
+
 }
 
 export default Products;

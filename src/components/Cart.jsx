@@ -8,16 +8,31 @@ function Cart({
   clearCart
 }) {
 
-  const total = cart.reduce((acc, item) => {
+  const totalItems =
+    cart.reduce(
+      (acc, item) =>
+        acc + (item.quantity || 1),
+      0
+    );
 
-    const cleanPrice =
-      item.price.replace(",", ".").replace("€", "");
+  const total =
+    cart.reduce((acc, item) => {
 
-    return acc + parseFloat(cleanPrice);
+      const cleanPrice =
+        String(item.price)
+          .replace(",", ".")
+          .replace("€", "");
 
-  }, 0);
+      return (
+        acc +
+        parseFloat(cleanPrice) *
+        (item.quantity || 1)
+      );
+
+    }, 0);
 
   return (
+
     <>
 
       {/* OVERLAY */}
@@ -26,25 +41,39 @@ function Cart({
 
         <div
           className="overlay-cart"
-          onClick={() => setIsCartOpen(false)}
+          onClick={() =>
+            setIsCartOpen(false)
+          }
         ></div>
 
       )}
 
       {/* DRAWER */}
 
-      <div className={`cart-drawer ${isCartOpen ? "open" : ""}`}>
+      <div
+        className={`cart-drawer ${
+          isCartOpen ? "open" : ""
+        }`}
+      >
 
         {/* HEADER */}
 
         <div className="cart-header">
 
           <h2>
-            Votre Panier
+
+            Votre Panier ({totalItems})
+
           </h2>
 
-          <button onClick={() => setIsCartOpen(false)}>
+          <button
+            onClick={() =>
+              setIsCartOpen(false)
+            }
+          >
+
             ✕
+
           </button>
 
         </div>
@@ -56,7 +85,9 @@ function Cart({
           {cart.length === 0 ? (
 
             <p className="empty-cart">
+
               Votre panier est vide
+
             </p>
 
           ) : (
@@ -76,11 +107,17 @@ function Cart({
                 <div className="cart-item-info">
 
                   <h4>
+
                     {item.title}
+
                   </h4>
 
                   <p>
+
                     {item.price}
+                    {" × "}
+                    {item.quantity || 1}
+
                   </p>
 
                   {/* SIZE */}
@@ -89,8 +126,7 @@ function Cart({
 
                     <span className="cart-detail">
 
-                      Taille :
-                      {" "}
+                      Taille :{" "}
                       {item.selectedSize}
 
                     </span>
@@ -103,8 +139,7 @@ function Cart({
 
                     <span className="cart-detail">
 
-                      Couleur :
-                      {" "}
+                      Couleur :{" "}
                       {item.selectedColor}
 
                     </span>
@@ -117,8 +152,7 @@ function Cart({
 
                     <span className="cart-detail">
 
-                      Quantité :
-                      {" "}
+                      Quantité :{" "}
                       {item.quantity}
 
                     </span>
@@ -127,7 +161,9 @@ function Cart({
 
                   <button
                     className="remove-btn"
-                    onClick={() => removeFromCart(index)}
+                    onClick={() =>
+                      removeFromCart(index)
+                    }
                   >
 
                     Supprimer
@@ -149,9 +185,10 @@ function Cart({
         <div className="cart-footer">
 
           <h3>
-            Total :
-            {" "}
+
+            Total :{" "}
             {total.toFixed(2)}€
+
           </h3>
 
           <Link to="/checkout">
@@ -182,7 +219,9 @@ function Cart({
       </div>
 
     </>
+
   );
+
 }
 
 export default Cart;

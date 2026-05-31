@@ -214,7 +214,7 @@ const products = [
 
   title: "Nexora Kanjivaram Silk Saree",
 
-  category: "sarees",
+  category: "kanjivaram-silk",
 
   price: "179,90",
 
@@ -253,7 +253,7 @@ const products = [
 
   title: "Nexora Cotton Saree",
 
-  category: "sarees",
+  category: "cotton-silk",
 
   price: "89,90",
 
@@ -312,7 +312,7 @@ const products = [
 
   title: "Nexora Arani Silk Bridal Collection",
 
-  category: "sarees",
+  category: "arani-silk",
 
   price: "249,90",
 
@@ -372,7 +372,7 @@ const products = [
 
   title: "Nexora Mysore Silk Festive Collection",
 
-  category: "sarees",
+  category: "mysore-silk",
 
   price: "169,90",
 
@@ -440,8 +440,8 @@ const products = [
 
   price: "149,90",
 
-  image:
-    "/images/nexora-bag-collection.png",
+  previewImage: "/images/nexora-bag-preview.png",
+  image: "/images/nexora-bag-collection-preview.png",
 
   sizes: ["Unique"],
 

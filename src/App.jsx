@@ -60,17 +60,75 @@ function App() {
   }, [cart]);
 
   /* =========================
+     CART COUNT
+  ========================= */
+
+  const cartCount =
+    cart.reduce(
+      (total, item) =>
+        total + (item.quantity || 1),
+      0
+    );
+
+  /* =========================
      ADD TO CART
   ========================= */
 
   const addToCart = (product) => {
 
-    setCart((prevCart) => [
+    setCart((prevCart) => {
 
-      ...prevCart,
-      product
+      const existingProductIndex =
+        prevCart.findIndex(
 
-    ]);
+          (item) =>
+
+            item.id === product.id &&
+            item.selectedSize ===
+              product.selectedSize &&
+            item.selectedColor ===
+              product.selectedColor
+
+        );
+
+      if (
+        existingProductIndex !== -1
+      ) {
+
+        const updatedCart =
+          [...prevCart];
+
+        updatedCart[
+          existingProductIndex
+        ] = {
+
+          ...updatedCart[
+            existingProductIndex
+          ],
+
+          quantity:
+            (
+              updatedCart[
+                existingProductIndex
+              ].quantity || 1
+            ) +
+            (product.quantity || 1)
+
+        };
+
+        return updatedCart;
+
+      }
+
+      return [
+
+        ...prevCart,
+
+        product
+
+      ];
+
+    });
 
     setNotification(
       `${product.title} ajouté au panier`
@@ -144,7 +202,7 @@ function App() {
           path="/"
           element={
             <Home
-              cartCount={cart.length}
+              cartCount={cartCount}
               setIsCartOpen={
                 setIsCartOpen
               }
@@ -159,7 +217,7 @@ function App() {
           path="/product/:id"
           element={
             <Product
-              cartCount={cart.length}
+              cartCount={cartCount}
               setIsCartOpen={
                 setIsCartOpen
               }
@@ -168,13 +226,13 @@ function App() {
           }
         />
 
-        {/* BOUTIQUE - TOUS LES PRODUITS */}
+        {/* BOUTIQUE */}
 
         <Route
           path="/boutique"
           element={
             <Boutique
-              cartCount={cart.length}
+              cartCount={cartCount}
               setIsCartOpen={
                 setIsCartOpen
               }
@@ -183,13 +241,13 @@ function App() {
           }
         />
 
-        {/* BOUTIQUE - CATEGORIES */}
+        {/* BOUTIQUE CATEGORIES */}
 
         <Route
           path="/boutique/:category"
           element={
             <Boutique
-              cartCount={cart.length}
+              cartCount={cartCount}
               setIsCartOpen={
                 setIsCartOpen
               }

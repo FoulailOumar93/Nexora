@@ -16,34 +16,39 @@ function Boutique({
      CATEGORY TITLES
   ========================= */
 
-  const categoryTitles = {
+const categoryTitles = {
 
-    hoodies: "Collection Hoodies",
+  hoodies: "Collection Hoodies",
 
-    tshirts: "Collection T-Shirts",
+  tshirts: "Collection T-Shirts",
 
-    chemises: "Collection Chemises",
+  chemises: "Collection Chemises",
 
-    pantalons: "Collection Pantalons",
+  pantalons: "Collection Pantalons",
 
-    chaussures: "Collection Chaussures",
+  chaussures: "Collection Chaussures",
 
-    sacs: "Nexora Luxury Handbag Collection",
+  sacs: "Nexora Luxury Handbag Collection",
 
-    sarees: "Nexora Kanjivaram Silk Collection",
+  "kanjivaram-silk":
+    "Nexora Kanjivaram Silk Collection",
 
-    cottonsarees: "Nexora Cotton Saree Collection",
+  "cotton-silk":
+    "Nexora Cotton Saree Collection",
 
-    aranisilk: "Nexora Arani Silk Bridal Collection",
+  "arani-silk":
+    "Nexora Arani Silk Bridal Collection",
 
-    mysore: "Nexora Mysore Silk Festive Collection",
+  "mysore-silk":
+    "Nexora Mysore Silk Festive Collection",
 
-    churidar: "Nexora Churidar Collection",
+  churidar:
+    "Nexora Churidar Collection",
 
-    veshti: "Nexora Veshti Collection"
+  veshti:
+    "Nexora Veshti Collection"
 
-  };
-
+};
   /* =========================
      PAGE TITLE
   ========================= */
@@ -59,22 +64,22 @@ function Boutique({
   let pageDescription =
     "Fashion • Streetwear • Lifestyle";
 
-  if (category === "sarees") {
+  if (category === "kanjivaram-silk") {
     pageDescription =
       "L'élégance intemporelle des Kanjivaram Silk Sarees";
   }
 
-  if (category === "cottonsarees") {
+  if (category === "cotton-silk") {
     pageDescription =
       "Légèreté, confort et élégance au quotidien";
   }
 
-  if (category === "aranisilk") {
+  if (category === "arani-silk") {
     pageDescription =
       "Collection mariage Arani Silk inspirée du Tamil Nadu";
   }
 
-  if (category === "mysore") {
+  if (category === "mysore-silk") {
     pageDescription =
       "Couleurs festives et raffinement du Mysore Silk";
   }

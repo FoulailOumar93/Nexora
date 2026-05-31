@@ -191,10 +191,15 @@ body{
   transform:translateY(-10px);
 }
 
-.product-card img{
+.product-card .product-image{
   width:100%;
   height:350px;
   object-fit:cover;
+}
+
+.collection-image .product-image{
+  height:auto !important;
+  object-fit:contain !important;
 }
 
 .product-info{
@@ -348,14 +353,45 @@ body{
   object-fit:cover;
   border-radius:10px;
 }
+.cart-item-info{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.cart-item-info h4{
+  margin-bottom:8px;
+}
+
+.cart-item-info p{
+  color:#d4af37;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.cart-detail{
+  display:block;
+  color:#bdbdbd;
+  font-size:0.9rem;
+  margin-bottom:4px;
+}
+
+.remove-btn{
+  margin-top:10px;
+  width:fit-content;
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  background:#ff4d4f;
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+}
 
 .cart-item h4{
   margin-bottom:10px;
 }
 
-.cart-item p{
-  color:#d4af37;
-}
 
 .empty-cart{
   text-align:center;
@@ -1491,13 +1527,12 @@ html{
 }
 
 .product-image-container{
-  position:relative;
   overflow:hidden;
 }
 
 .product-image{
   width:100%;
-  height:500px;
+  height:100%;
   object-fit:cover;
   object-position:center top;
 }
@@ -2002,13 +2037,16 @@ html{
   }
 
 }
-.product-card{
-  width:100%;
-}
 .products-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,400px));
+  justify-content:center;
   gap:30px;
+}
+
+.product-card{
+  width:100%;
+  max-width:400px;
 }
 .logo-text{
   font-size: 1.8rem;
@@ -2310,5 +2348,160 @@ body{
   transform:translateX(-50%);
   width:220px;
   max-width:90vw;
+}
+/* DESKTOP */
+
+.product-image-container{
+  aspect-ratio:1 / 1;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+  .product-image-container{
+    aspect-ratio:9 / 16;
+  }
+
+}
+
+.product-card .product-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Collections Saree */
+
+.collection-image{
+  aspect-ratio:auto !important;
+}
+
+.collection-image .product-image{
+  width:100%;
+  height:auto !important;
+  object-fit:contain !important;
+  display:block;
+}
+.product-info{
+  padding:40px 25px;
+}
+
+
+/* =========================
+   SAREE SUBMENU
+========================= */
+
+.saree-submenu{
+  position:relative;
+}
+
+.saree-trigger{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  width:100%;
+
+  padding:18px 22px;
+
+  color:#d4af37;
+
+  cursor:pointer;
+
+  border-bottom:1px solid #1f1f1f;
+
+  transition:0.3s;
+}
+
+.saree-trigger:hover{
+  background:#1a1a1a;
+}
+
+.saree-dropdown{
+  position:absolute;
+
+  top:0;
+  left:100%;
+
+  width:260px;
+
+  background:#111;
+
+  border:1px solid #222;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  z-index:5000;
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.5);
+}
+
+.saree-dropdown a{
+  display:block;
+
+  padding:18px 22px;
+
+  color:white;
+
+  text-decoration:none;
+
+  border-bottom:1px solid #1f1f1f;
+
+  transition:0.3s;
+}
+
+.saree-dropdown a:hover{
+  background:#1a1a1a;
+
+  color:#d4af37;
+}
+.dropdown-menu{
+  position:absolute;
+  top:45px;
+  left:0;
+
+  width:260px;
+
+  background:#111;
+
+  border:1px solid #222;
+
+  border-radius:18px;
+
+  z-index:4000;
+
+  max-height:70vh;
+
+  overflow-y:auto;
+
+  overflow-x:hidden;
+
+  scrollbar-width:thin;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+  .saree-dropdown{
+
+    position:static;
+
+    width:100%;
+
+    margin-top:10px;
+
+    border-radius:12px;
+
+    border:1px solid #222;
+  }
+
 }
 }

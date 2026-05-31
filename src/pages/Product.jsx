@@ -157,22 +157,21 @@ function Product({
 
     }
 
-    addToCart({
+addToCart({
 
-      ...product,
+  ...product,
 
-      selectedSize,
+  image: selectedImage,
 
-      selectedBlouseSize,
+  selectedSize,
 
-      selectedColor,
+  selectedBlouseSize,
 
-      selectedImage,
+  selectedColor,
 
-      quantity
+  quantity
 
-    });
-
+});
     setError("");
 
   };

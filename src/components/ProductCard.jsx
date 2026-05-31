@@ -63,13 +63,29 @@ function ProductCard({
     lowerTitle.includes("nike") ||
     lowerTitle.includes("sneaker");
 
+  /* =========================
+     COLLECTION SAREE
+  ========================= */
+
+  const isSareeCollection =
+    isCottonSaree ||
+    isKanjivaramSilk ||
+    isAraniSilk ||
+    isMysoreSilk;
+
   return (
 
     <div className="product-card">
 
       {/* IMAGE */}
 
-      <div className="product-image-container">
+      <div
+        className={
+          isSareeCollection
+            ? "product-image-container collection-image"
+            : "product-image-container"
+        }
+      >
 
         <Link to={`/product/${id}`}>
 
