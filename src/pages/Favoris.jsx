@@ -3,9 +3,10 @@ import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 
         function Favoris({
-        cartCount,
-        setIsCartOpen
-        }) {
+  cartCount,
+  setIsCartOpen,
+  addToCart
+}) {
 
   const favorites =
     JSON.parse(
@@ -62,14 +63,14 @@ import ProductCard from "../components/ProductCard";
               {favorites.map(
                 (product) => (
 
-                  <ProductCard
+                 <ProductCard
                     key={product.id}
                     id={product.id}
                     image={product.image}
                     title={product.title}
                     price={product.price}
-                    addToCart={() => {}}
-                  />
+                    addToCart={addToCart}
+                    />
 
                 )
               )}

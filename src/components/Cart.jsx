@@ -183,7 +183,27 @@ function Cart({
         {/* FOOTER */}
 
         <div className="cart-footer">
+          {total < 100 ? (
 
+  <div className="shipping-message">
+
+    🚚 Encore{" "}
+    {(100 - total).toFixed(2)}€
+    pour profiter de la
+    livraison offerte
+
+  </div>
+
+) : (
+
+  <div className="shipping-message free">
+
+    ✅ Livraison offerte
+    débloquée
+
+  </div>
+
+)}
           <h3>
 
             Total :{" "}

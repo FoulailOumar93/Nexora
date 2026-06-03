@@ -2787,3 +2787,17 @@ body{
   align-items:center;
   justify-content:center;
 }
+.shipping-message{
+  margin-bottom:15px;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
+  font-size:0.9rem;
+  background:#1a1a1a;
+  color:#d4af37;
+}
+
+.shipping-message.free{
+  background:#143d21;
+  color:#7dff9b;
+}

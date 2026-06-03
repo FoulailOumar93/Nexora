@@ -294,15 +294,16 @@ function App() {
 
           {/* Favoris */}
 
-        <Route
-      path="/favoris"
-      element={
-        <Favoris
-          cartCount={cartCount}
-          setIsCartOpen={setIsCartOpen}
-        />
-      }
+     <Route
+  path="/favoris"
+  element={
+    <Favoris
+      cartCount={cartCount}
+      setIsCartOpen={setIsCartOpen}
+      addToCart={addToCart}
     />
+  }
+/>
           </Routes>
 
       
