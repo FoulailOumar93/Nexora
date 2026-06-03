@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function ProductCard({
   id,
@@ -72,6 +73,66 @@ function ProductCard({
     isKanjivaramSilk ||
     isAraniSilk ||
     isMysoreSilk;
+    const [isFavorite, setIsFavorite] =
+  useState(false);
+
+useEffect(() => {
+
+  const favorites =
+    JSON.parse(
+      localStorage.getItem(
+        "nexoraFavorites"
+      )
+    ) || [];
+
+  setIsFavorite(
+    favorites.some(
+      (item) => item.id === id
+    )
+  );
+
+}, [id]);
+
+const toggleFavorite = () => {
+
+  const favorites =
+    JSON.parse(
+      localStorage.getItem(
+        "nexoraFavorites"
+      )
+    ) || [];
+
+  if (isFavorite) {
+
+    const updated =
+      favorites.filter(
+        (item) => item.id !== id
+      );
+
+    localStorage.setItem(
+      "nexoraFavorites",
+      JSON.stringify(updated)
+    );
+
+    setIsFavorite(false);
+
+  } else {
+
+    const updated = [
+      ...favorites,
+      product
+    ];
+
+    localStorage.setItem(
+      "nexoraFavorites",
+      JSON.stringify(updated)
+    );
+
+    setIsFavorite(true);
+
+  }
+
+};
 
   return (
 
@@ -86,6 +147,21 @@ function ProductCard({
             : "product-image-container"
         }
       >
+  <button
+  className="favorite-btn"
+  onClick={(e) => {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    toggleFavorite();
+
+  }}
+>
+
+  {isFavorite ? "❤️" : "🤍"}
+
+</button>
 
         <Link to={`/product/${id}`}>
 

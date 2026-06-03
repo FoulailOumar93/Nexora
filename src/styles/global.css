@@ -1528,6 +1528,7 @@ html{
 
 .product-image-container{
   overflow:hidden;
+  position:relative;
 }
 
 .product-image{
@@ -2743,4 +2744,21 @@ body{
 
 .promo-box button:hover{
   opacity:0.9;
+}
+.favorite-btn{
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:#111;
+  cursor:pointer;
+  font-size:1.3rem;
+  z-index:5;
+}
+
+.favorite-btn:hover{
+  transform:scale(1.1);
 }
