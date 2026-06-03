@@ -1,8 +1,13 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
 function Checkout() {
+ const [promoCode, setPromoCode] =
+    useState("");
 
+  const [discount, setDiscount] =
+    useState(0);
   const cart =
     JSON.parse(
       localStorage.getItem("nexoraCart")
@@ -26,6 +31,40 @@ function Checkout() {
 
   const monthlyPayment =
     total / 3;
+const finalTotal =
+  total - discount;
+    const applyPromoCode = () => {
+
+  const code =
+    promoCode.toUpperCase();
+
+  if (code === "NEXORA10") {
+
+    setDiscount(total * 0.10);
+
+  } else if (
+    code === "WELCOME15"
+  ) {
+
+    setDiscount(total * 0.15);
+
+  } else if (
+    code === "PREMIUM20"
+  ) {
+
+    setDiscount(total * 0.20);
+
+  } else {
+
+    setDiscount(0);
+
+    alert(
+      "Code promo invalide"
+    );
+
+  }
+
+};
 
   const handlePayment = () => {
 
@@ -266,21 +305,61 @@ function Checkout() {
 
             )}
 
-            <div className="summary-total">
+            <div className="promo-box">
 
+  <input
+    type="text"
+    placeholder="Code promo"
+    value={promoCode}
+    onChange={(e) =>
+      setPromoCode(
+        e.target.value
+      )
+    }
+  />
+
+  <button
+    type="button"
+    onClick={applyPromoCode}
+  >
+
+    Appliquer
+
+  </button>
+
+</div>
+
+            <div className="summary-total">
+{discount > 0 && (
+
+  <div className="summary-item">
+
+    <span>
+      Réduction
+    </span>
+
+    <span>
+
+      -{discount.toFixed(2)}€
+
+    </span>
+
+  </div>
+
+)}
               <span>
                 Total
               </span>
 
               <span>
 
-                {total.toFixed(2)}€
+                {finalTotal.toFixed(2)}€
 
               </span>
 
             </div>
 
-            {total >= 100 && (
+            {finalTotal >= 100 && (
 
               <div className="installments">
 
@@ -295,7 +374,7 @@ function Checkout() {
 
                   3 mensualités de
                   {" "}
-                  {monthlyPayment.toFixed(2)}€
+                  {(finalTotal / 3).toFixed(2)}€
 
                 </p>
 

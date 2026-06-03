@@ -2709,3 +2709,38 @@ body{
   }
 
 }
+.promo-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:20px 0;
+}
+
+.promo-box input{
+  flex:1;
+  background:#111;
+  border:1px solid #333;
+  color:white;
+  padding:12px 15px;
+  border-radius:10px;
+  font-size:1rem;
+}
+
+.promo-box input::placeholder{
+  color:#888;
+}
+
+.promo-box button{
+  background:#d4af37;
+  color:#000;
+  border:none;
+  border-radius:10px;
+  padding:12px 20px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.promo-box button:hover{
+  opacity:0.9;
+}
