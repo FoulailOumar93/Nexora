@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import ProductCard from "../components/ProductCard";
 import { Link, useParams } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
@@ -19,6 +19,19 @@ function Product({
       (item) =>
         item.id === Number(id)
     );
+    const relatedProducts =
+  products
+    .filter(
+
+      (item) =>
+
+        item.category ===
+          product?.category &&
+
+        item.id !== product?.id
+
+    )
+    .slice(0, 4);
 
   /* =========================
      PRODUCT NOT FOUND
@@ -549,7 +562,36 @@ addToCart({
         </div>
 
       </main>
+{/* RELATED PRODUCTS */}
 
+<section className="related-products">
+
+  <h2>
+
+    Vous aimerez aussi
+
+  </h2>
+
+  <div className="products-grid">
+
+    {relatedProducts.map(
+      (item) => (
+
+        <ProductCard
+          key={item.id}
+          id={item.id}
+          image={item.image}
+          title={item.title}
+          price={item.price}
+          addToCart={addToCart}
+        />
+
+      )
+    )}
+
+  </div>
+
+</section>
       {/* SIZE GUIDE */}
 
       {showSizeGuide && (
