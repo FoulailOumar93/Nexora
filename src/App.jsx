@@ -14,6 +14,7 @@ import Support from "./pages/Support";
 import Boutique from "./pages/Boutique";
 import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./components/Cart";
+import Confirmation from "./pages/Confirmation";
 
 function App() {
 
@@ -255,11 +256,18 @@ function App() {
           }
         />
 
-        {/* CHECKOUT */}
+       {/* CHECKOUT */}
 
         <Route
           path="/checkout"
           element={<Checkout />}
+        />
+
+        {/* CONFIRMATION */}
+
+        <Route
+          path="/confirmation"
+          element={<Confirmation />}
         />
 
         {/* LOGIN */}

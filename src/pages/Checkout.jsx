@@ -47,7 +47,8 @@ function Checkout() {
       "nexoraCart"
     );
 
-    window.location.href = "/";
+    window.location.href =
+  "/confirmation";
 
   };
 
@@ -217,66 +218,46 @@ function Checkout() {
 
                   return (
 
-                    <div
-                      className="summary-item"
-                      key={index}
-                    >
+                  <div
+                    className="summary-item checkout-product-item"
+                    key={index}
+                  >
 
-                      <div>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="checkout-product-image"
+                    />
 
-                        <strong>
+                    <div className="checkout-product-info">
 
-                          {item.title}
+                      <strong>
+                        {item.title}
+                      </strong>
 
-                        </strong>
-
-                        <br />
-
-                        {item.selectedColor && (
-
-                          <span>
-
-                            Couleur :
-                            {" "}
-                            {item.selectedColor}
-
-                          </span>
-
-                        )}
-
-                        <br />
-
-                        {item.selectedSize && (
-
-                          <span>
-
-                            Taille :
-                            {" "}
-                            {item.selectedSize}
-
-                          </span>
-
-                        )}
-
-                        <br />
-
+                      {item.selectedColor && (
                         <span>
-
-                          Quantité :
-                          {" "}
-                          {item.quantity || 1}
-
+                          Couleur : {item.selectedColor}
                         </span>
+                      )}
 
-                      </div>
+                      {item.selectedSize && (
+                        <span>
+                          Taille : {item.selectedSize}
+                        </span>
+                      )}
 
                       <span>
-
-                        {itemTotal.toFixed(2)}€
-
+                        Quantité : {item.quantity || 1}
                       </span>
 
                     </div>
+
+                    <span className="checkout-product-price">
+                      {itemTotal.toFixed(2)}€
+                    </span>
+
+                  </div>
 
                   );
 

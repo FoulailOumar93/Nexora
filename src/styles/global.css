@@ -2532,3 +2532,139 @@ body{
 .product-detail-image{
   position:relative;
 }
+.checkout-product-item{
+  display:grid;
+  grid-template-columns:70px 1fr auto;
+  gap:15px;
+  align-items:center;
+  margin-bottom:20px;
+  padding-bottom:20px;
+  border-bottom:1px solid #222;
+}
+
+.checkout-product-image{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.checkout-product-info{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.checkout-product-info strong{
+  color:white;
+}
+
+.checkout-product-info span{
+  color:#aaa;
+  font-size:0.9rem;
+}
+
+.checkout-product-price{
+  color:#d4af37;
+  font-weight:700;
+  font-size:1rem;
+}
+/* =========================
+   CHECKOUT MOBILE
+========================= */
+
+@media (max-width: 768px){
+
+  .checkout-page{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+    padding:20px;
+  }
+
+  .checkout-left,
+  .checkout-right{
+    width:100%;
+  }
+
+  .checkout-grid{
+    grid-template-columns:1fr;
+  }
+
+  .summary-box{
+    position:static;
+    width:100%;
+  }
+
+  .checkout-product-item{
+    grid-template-columns:60px 1fr;
+    gap:12px;
+  }
+
+  .checkout-product-price{
+    grid-column:2;
+    justify-self:end;
+    margin-top:5px;
+  }
+
+  .checkout-product-image{
+    width:60px;
+    height:60px;
+  }
+
+  .checkout-left h1{
+    font-size:2rem;
+  }
+
+  .checkout-section{
+    padding:20px;
+  }
+
+  .checkout-section input{
+    width:100%;
+  }
+
+  .pay-btn{
+    width:100%;
+  }
+
+}
+.confirmation-box{
+  max-width:700px;
+  width:100%;
+  margin:0 auto;
+  text-align:center;
+  padding:40px;
+  background:#111;
+  border:1px solid #222;
+  border-radius:20px;
+}
+.confirmation-box h1{
+  font-size:3rem;
+  margin-bottom:30px;
+}
+
+.confirmation-box p{
+  color:#ccc;
+  font-size:1.1rem;
+  margin-bottom:15px;
+}
+
+.confirmation-box strong{
+  display:block;
+  margin:20px 0;
+  color:#d4af37;
+  font-size:1.4rem;
+}
+.confirmation-box .pay-btn{
+  width:auto;
+  min-width:250px;
+  margin-top:30px;
+}
+.confirmation-page{
+  margin-top:120px;
+  min-height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
