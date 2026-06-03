@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Support from "./pages/Support";
 import Boutique from "./pages/Boutique";
-
+import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./components/Cart";
 
 function App() {
@@ -193,11 +193,10 @@ function App() {
       {/* =========================
           ROUTES
       ========================= */}
-
+      <ScrollToTop />
       <Routes>
-
+      
         {/* HOME */}
-
         <Route
           path="/"
           element={
