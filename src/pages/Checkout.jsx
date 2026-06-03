@@ -3,7 +3,56 @@ import Footer from "../components/Footer";
 
 function Checkout() {
 
+  const cart =
+    JSON.parse(
+      localStorage.getItem("nexoraCart")
+    ) || [];
+
+  const total =
+    cart.reduce((acc, item) => {
+
+      const cleanPrice =
+        String(item.price)
+          .replace(",", ".")
+          .replace("€", "");
+
+      return (
+        acc +
+        parseFloat(cleanPrice) *
+        (item.quantity || 1)
+      );
+
+    }, 0);
+
+  const monthlyPayment =
+    total / 3;
+
+  const handlePayment = () => {
+
+    if (cart.length === 0) {
+
+      alert(
+        "Votre panier est vide."
+      );
+
+      return;
+
+    }
+
+    alert(
+      "✅ Paiement validé !\n\nMerci pour votre commande sur Nexora."
+    );
+
+    localStorage.removeItem(
+      "nexoraCart"
+    );
+
+    window.location.href = "/";
+
+  };
+
   return (
+
     <>
 
       <Navbar
@@ -121,6 +170,18 @@ function Checkout() {
 
             </div>
 
+            <div className="payment-methods">
+
+              <h3>
+                Moyens de paiement acceptés
+              </h3>
+
+              <p>
+                Visa • Mastercard • PayPal
+              </p>
+
+            </div>
+
           </div>
 
         </div>
@@ -132,34 +193,139 @@ function Checkout() {
           <div className="summary-box">
 
             <h2>
-              Résumé
+              Résumé de commande
             </h2>
 
-            <div className="summary-item">
+            {cart.length === 0 ? (
 
-              <span>Hoodie Nexora</span>
+              <p>
+                Votre panier est vide
+              </p>
 
-              <span>49,90€</span>
+            ) : (
 
-            </div>
+              cart.map(
+                (item, index) => {
 
-            <div className="summary-item">
+                  const itemTotal =
+                    parseFloat(
+                      String(item.price)
+                        .replace(",", ".")
+                        .replace("€", "")
+                    ) *
+                    (item.quantity || 1);
 
-              <span>Oversize T-Shirt</span>
+                  return (
 
-              <span>29,90€</span>
+                    <div
+                      className="summary-item"
+                      key={index}
+                    >
 
-            </div>
+                      <div>
+
+                        <strong>
+
+                          {item.title}
+
+                        </strong>
+
+                        <br />
+
+                        {item.selectedColor && (
+
+                          <span>
+
+                            Couleur :
+                            {" "}
+                            {item.selectedColor}
+
+                          </span>
+
+                        )}
+
+                        <br />
+
+                        {item.selectedSize && (
+
+                          <span>
+
+                            Taille :
+                            {" "}
+                            {item.selectedSize}
+
+                          </span>
+
+                        )}
+
+                        <br />
+
+                        <span>
+
+                          Quantité :
+                          {" "}
+                          {item.quantity || 1}
+
+                        </span>
+
+                      </div>
+
+                      <span>
+
+                        {itemTotal.toFixed(2)}€
+
+                      </span>
+
+                    </div>
+
+                  );
+
+                }
+              )
+
+            )}
 
             <div className="summary-total">
 
-              <span>Total</span>
+              <span>
+                Total
+              </span>
 
-              <span>79,80€</span>
+              <span>
+
+                {total.toFixed(2)}€
+
+              </span>
 
             </div>
 
-            <button className="pay-btn">
+            {total >= 100 && (
+
+              <div className="installments">
+
+                <h3>
+
+                  Paiement en 3x
+                  sans frais
+
+                </h3>
+
+                <p>
+
+                  3 mensualités de
+                  {" "}
+                  {monthlyPayment.toFixed(2)}€
+
+                </p>
+
+              </div>
+
+            )}
+
+            <button
+              className="pay-btn"
+              onClick={handlePayment}
+            >
 
               Payer maintenant
 
@@ -174,7 +340,9 @@ function Checkout() {
       <Footer />
 
     </>
+
   );
+
 }
 
 export default Checkout;
