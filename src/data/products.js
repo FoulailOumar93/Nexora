@@ -14,26 +14,26 @@ const products = [
     price: "65,90",
 
     image:
-      "/images/hoodie-black.png",
+      "/images/Hoodies/hoodie-black.png",
 
     sizes: ["S", "M", "L", "XL"],
 
     colors: {
 
       Noir:
-        "/images/hoodie-black.png",
+        "/images/Hoodies/hoodie-black.png",
 
       Blanc:
-        "/images/hoodie-white.png",
+        "/images/Hoodies/hoodie-white.png",
 
       Beige:
-        "/images/hoodie-beige.png",
+        "/images/Hoodies/hoodie-beige.png",
 
       Gris:
-        "/images/hoodie-grey.png",
+        "/images/Hoodies/hoodie-grey.png",
 
       Marron:
-        "/images/hoodie-brown.png"
+        "/images/Hoodies/hoodie-brown.png"
 
     }
 
@@ -48,32 +48,32 @@ const products = [
     price: "89,90",
 
     image:
-      "/images/nexora-hoodie-jogging-premium.png",
+      "/images/Hoodies/nexora-hoodie-jogging-premium.png",
 
     sizes: ["S", "M", "L", "XL"],
 
     colors: {
 
       "Noir Midnight":
-        "/images/nexora-hoodie-jogging-premium.png",
+        "/images/Hoodies/nexora-hoodie-jogging-premium.png",
 
       "Blanc Perle":
-        "/images/nexora-hoodie-jogging-white.png",
+        "/images/Hoodies/nexora-hoodie-jogging-white.png",
 
       "Beige Sable":
-        "/images/nexora-hoodie-jogging-beige.png",
+        "/images/Hoodies/nexora-hoodie-jogging-beige.png",
 
       "Gris Anthracite":
-        "/images/nexora-hoodie-jogging-grey.png",
+        "/images/Hoodies/nexora-hoodie-jogging-grey.png",
 
       "Bordeaux Royal":
-        "/images/nexora-hoodie-jogging-bordeaux.png",
+        "/images/Hoodies/nexora-hoodie-jogging-bordeaux.png",
 
       "Vert Émeraude":
-        "/images/nexora-hoodie-jogging-green.png",
+        "/images/Hoodies/nexora-hoodie-jogging-green.png",
 
       "Bleu Nuit":
-        "/images/nexora-hoodie-jogging-blue.png"
+        "/images/Hoodies/nexora-hoodie-jogging-blue.png"
 
     }
   },
@@ -93,17 +93,17 @@ const products = [
     price: "35,90",
 
     image:
-      "/images/Nexora Exclusive.png",
+      "/images/T-Shirts/nexora-exclusive-tshirt.png",
 
     sizes: ["S", "M", "L", "XL"],
 
     colors: {
 
       Noir:
-        "/images/Nexora Exclusive.png",
+        "/images/T-Shirts/nexora-exclusive-tshirt-black.png",
 
       Blanc:
-        "/images/Nexora Exclusive.png"
+        "/images/T-Shirts/nexora-exclusive-tshirt-white.png"
 
     }
 
@@ -123,20 +123,20 @@ const products = [
     price: "49,90",
 
     image:
-      "/images/nexora-shirt-white.png",
+      "/images/Chemises/nexora-shirt-white.png",
 
     sizes: ["S", "M", "L", "XL"],
 
     colors: {
 
       Blanc:
-        "/images/nexora-shirt-white.png",
+        "/images/Chemises/nexora-shirt-white.png",
 
       Beige:
-        "/images/nexora-shirt-beige.png",
+        "/images/Chemises/nexora-shirt-beige.png",
 
       Noir:
-        "/images/nexora-shirt-black.png"
+        "/images/Chemises/nexora-shirt-black.png"
 
     }
 
@@ -156,20 +156,20 @@ const products = [
     price: "59,90",
 
     image:
-      "/images/nexora-pants-black.png",
+      "/images/Pantalons/nexora-pants-black.png",
 
     sizes: [38, 40, 42, 44, 46],
 
     colors: {
 
       Noir:
-        "/images/nexora-pants-black.png",
+        "/images/Pantalons/nexora-pants-black.png",
 
       Beige:
-        "/images/nexora-pants-beige.png",
+        "/images/Pantalons/nexora-pants-beige.png",
 
       Marron:
-        "/images/nexora-pants-brown.png"
+        "/images/Pantalons/nexora-pants-brown.png"
 
     }
 
@@ -189,17 +189,17 @@ const products = [
     price: "75,90",
 
     image:
-      "/images/nike-court-royale-2.png",
+      "/images/Chaussures/nike-court-royale-2.png",
 
     sizes: [39, 40, 41, 42, 43, 44],
 
     colors: {
 
       Noir:
-        "/images/nike-court-royale-2-black.png",
+        "/images/Chaussures/nike-court-royale-2-black.png",
 
       Blanc:
-        "/images/nike-court-royale-2-white.png"
+        "/images/Chaussures/nike-court-royale-2-white.png"
 
     }
 
@@ -219,7 +219,7 @@ const products = [
   price: "179,90",
 
   image:
-    "/images/nexora-silk-saree.png",
+    "/images/Sarees/Soft Silk Saree Collection/nexora-silk-saree.png",
 
   sizes: [
 
@@ -233,13 +233,13 @@ const products = [
   colors: {
 
     'Rouge Royal':
-      "/images/nexora-silk-red.png",
+      "/images/Sarees/Soft Silk Saree Collection/nexora-silk-red.png",
 
     'Vert Émeraude':
-      "/images/nexora-silk-green.png",
+      "/images/Sarees/Soft Silk Saree Collection/nexora-silk-green.png",
 
     'Bleu Nuit':
-      "/images/nexora-silk-blue.png"
+      "/images/Sarees/Soft Silk Saree Collection/nexora-silk-blue.png"
 
   }
 
@@ -258,7 +258,7 @@ const products = [
   price: "89,90",
 
   image:
-    "/images/nexora-cotton-saree.png",
+    "/images/Sarees/Cotton Saree Collection/nexora-cotton-saree.png",
 
   sizes: [
 
@@ -283,13 +283,13 @@ const products = [
   colors: {
 
     'Beige Sable':
-      "/images/nexora-cotton-beige.png",
+      "/images/Sarees/Cotton Saree Collection/nexora-cotton-beige.png",
 
     'Rose Pastel':
-      "/images/nexora-cotton-rose.png",
+      "/images/Sarees/Cotton Saree Collection/nexora-cotton-rose.png",
 
     'Blanc Cassé':
-      "/images/nexora-cotton-white.png"
+      "/images/Sarees/Cotton Saree Collection/nexora-cotton-white.png"
 
   }
 
@@ -317,7 +317,7 @@ const products = [
   price: "249,90",
 
   image:
-    "/images/nexora-arani-bridal-collection.png",
+    "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-collection.png",
 
   sizes: [
 
@@ -342,22 +342,22 @@ const products = [
   colors: {
 
     "Rouge Mariage":
-      "/images/nexora-arani-bridal-red.png",
+      "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-red.png",
 
     "Rouge Royal":
-      "/images/nexora-arani-bridal-royal-red.png",
+      "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-royal-red.png",
 
     "Bordeaux Luxe":
-      "/images/nexora-arani-bridal-bordeaux.png",
+      "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-bordeaux.png",
 
     "Gold Royal":
-      "/images/nexora-arani-bridal-gold.png",
+      "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-gold.png",
 
     "Vert Émeraude Royal":
-      "/images/nexora-arani-bridal-green.png",
+      "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-green.png",
 
     "Rose Bridal":
-      "/images/nexora-arani-bridal-rose.png"
+      "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-rose.png"
 
   }
 
@@ -377,7 +377,7 @@ const products = [
   price: "169,90",
 
   image:
-    "/images/nexora-mysore-silk-festive-collection.png",
+    "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-silk-festive-collection.png",
 
   sizes: [
 
@@ -402,22 +402,22 @@ const products = [
   colors: {
 
     "Rouge Rubis":
-      "/images/nexora-mysore-red.png",
+      "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-red.png",
 
     "Bleu Royal":
-      "/images/nexora-mysore-blue.png",
+      "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-blue.png",
 
     "Vert Émeraude":
-      "/images/nexora-mysore-green.png",
+      "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-green.png",
 
     "Violet Prune":
-      "/images/nexora-mysore-purple.png",
+      "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-purple.png",
 
     "Rose Fuchsia":
-      "/images/nexora-mysore-pink.png",
+      "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-pink.png",
 
     "Or Champagne":
-      "/images/nexora-mysore-gold.png"
+      "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-gold.png"
 
   }
 
@@ -440,30 +440,30 @@ const products = [
 
   price: "149,90",
 
-  previewImage: "/images/nexora-bag-preview.png",
-  image: "/images/nexora-bag-collection-preview.png",
+  previewImage: "/images/Sacs/nexora-bag-preview.png",
+  image: "/images/Sacs/nexora-bag-collection-preview.png",
 
   sizes: ["Unique"],
 
   colors: {
 
     "Champagne Gold":
-      "/images/nexora-bag-champagne.png",
+      "/images/Sacs/nexora-bag-champagne.png",
 
     "Bordeaux Luxe":
-      "/images/nexora-bag-bordeaux.png",
+      "/images/Sacs/nexora-bag-bordeaux.png",
 
       "Rose Blush Royal":
-      "/images/nexora-bag-rose.png",
+      "/images/Sacs/nexora-bag-rose.png",
 
     "Vert Sauge":
-      "/images/nexora-bag-green.png",
+      "/images/Sacs/nexora-bag-green.png",
 
     "Noir Premium":
-      "/images/nexora-bag-black.png",
+      "/images/Sacs/nexora-bag-black.png",
 
     "Camel Luxury":
-      "/images/nexora-bag-camel.png",
+      "/images/Sacs/nexora-bag-camel.png",
 
     
 
@@ -488,7 +488,7 @@ const products = [
   price: "129,90",
 
   image:
-    "/images/nexora-churidar-collection.png",
+    "/images/Churidars/nexora-churidar-collection.png",
 
   sizes: [
 
@@ -503,22 +503,22 @@ const products = [
   colors: {
 
     "Blanc Jasmin":
-      "/images/nexora-churidar-white.png",
+      "/images/Churidars/nexora-churidar-white.png",
 
     "Rose Pastel":
-      "/images/nexora-churidar-pink.png",
+      "/images/Churidars/nexora-churidar-pink.png",
 
     "Bleu Royal":
-      "/images/nexora-churidar-blue.png",
+      "/images/Churidars/nexora-churidar-blue.png",
 
     "Vert Émeraude":
-      "/images/nexora-churidar-green.png",
+      "/images/Churidars/nexora-churidar-green.png",
 
     "Bordeaux Royal":
-      "/images/nexora-churidar-bordeaux.png",
+      "/images/Churidars/nexora-churidar-bordeaux.png",
 
     "Noir Impérial":
-      "/images/nexora-churidar-black.png"
+      "/images/Churidars/nexora-churidar-black.png"
 
   }
 
@@ -537,20 +537,20 @@ const products = [
     price: "89,90",
 
     image:
-      "/images/nexora-veshti-shirt-collection.png",
+      "/images/Veshti/nexora-veshti-shirt-collection.png",
 
     sizes: ["Classic"],
 
     colors: {
 
       Blanc:
-        "/images/nexora-veshti-shirt-white.png",
+        "/images/Veshti/nexora-veshti-shirt-white.png",
 
       Vert:
-        "/images/nexora-veshti-shirt-green.png",
+        "/images/Veshti/nexora-veshti-shirt-green.png",
 
       Bordeaux:
-        "/images/nexora-veshti-shirt-bordeaux.png",
+        "/images/Veshti/nexora-veshti-shirt-bordeaux.png",
 
 
     }

@@ -8,11 +8,11 @@ function Hero() {
 
         <source
           media="(max-width:768px)"
-          srcSet="/images/Nexora-Banner-Mobile.png"
+          srcSet="/images/Banner/Nexora-Banner-Mobile.png"
         />
 
         <img
-          src="/images/Nexora-Banner.png"
+          src="/images/Banner/Nexora-Banner.png"
           alt="Nexora Banner"
           className="hero-banner-image"
         />
