@@ -2505,3 +2505,30 @@ body{
 
 }
 }
+.gallery-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:#d4af37;
+  color:#000;
+  font-size:1.5rem;
+  font-weight:bold;
+  cursor:pointer;
+  z-index:10;
+}
+
+.gallery-btn.left{
+  left:10px;
+}
+
+.gallery-btn.right{
+  right:10px;
+}
+
+.product-detail-image{
+  position:relative;
+}

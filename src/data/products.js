@@ -93,17 +93,17 @@ const products = [
     price: "35,90",
 
     image:
-      "/images/T-Shirts/nexora-exclusive-tshirt.png",
+      "/images/T-Shirts/Nexora Exclusive T-Shirt.png",
 
     sizes: ["S", "M", "L", "XL"],
 
     colors: {
 
       Noir:
-        "/images/T-Shirts/nexora-exclusive-tshirt-black.png",
+        "/images/T-Shirts/Nexora Exclusive T-Shirt.png",
 
       Blanc:
-        "/images/T-Shirts/nexora-exclusive-tshirt-white.png"
+        "/images/T-Shirts/Nexora Exclusive T-Shirt.png"
 
     }
 
@@ -440,36 +440,109 @@ const products = [
 
   price: "149,90",
 
-  previewImage: "/images/Sacs/nexora-bag-preview.png",
-  image: "/images/Sacs/nexora-bag-collection-preview.png",
+  previewImage:
+    "/images/Sacs/nexora-bag-collection-preview.png",
+
+  image:
+    "/images/Sacs/nexora-bag-collection-preview.png",
 
   sizes: ["Unique"],
 
   colors: {
 
-    "Champagne Gold":
+  "Champagne Gold": [
+
+    "/images/Sacs/nexora-bag-champagne.png",
+
+    "/images/Sacs/nexora-bag-champagne-preview.png"
+
+  ],
+
+  "Bordeaux Luxe": [
+
+    "/images/Sacs/nexora-bag-bordeaux.png",
+
+    "/images/Sacs/nexora-bag-bordeaux-preview.png"
+
+  ],
+
+  "Rose Blush Royal": [
+
+    "/images/Sacs/nexora-bag-rose.png",
+
+    "/images/Sacs/nexora-bag-rose-preview.png"
+
+  ],
+
+  "Vert Sauge": [
+
+    "/images/Sacs/nexora-bag-green.png",
+
+    "/images/Sacs/nexora-bag-green-preview.png"
+
+  ],
+
+  "Noir Premium": [
+
+    "/images/Sacs/nexora-bag-black.png",
+
+    "/images/Sacs/nexora-bag-black-preview.png"
+
+  ],
+
+  "Camel Luxury": [
+
+    "/images/Sacs/nexora-bag-camel.png",
+
+    "/images/Sacs/nexora-bag-camel-preview.png"
+
+  ]
+
+},
+  views: {
+
+    "Champagne Gold": [
+
       "/images/Sacs/nexora-bag-champagne.png",
 
-    "Bordeaux Luxe":
-      "/images/Sacs/nexora-bag-bordeaux.png",
+      "/images/Sacs/nexora-bag-champagne-preview.png"
 
-      "Rose Blush Royal":
-      "/images/Sacs/nexora-bag-rose.png",
+    ],
 
-    "Vert Sauge":
-      "/images/Sacs/nexora-bag-green.png",
+    "Bordeaux Luxe": [
 
-    "Noir Premium":
-      "/images/Sacs/nexora-bag-black.png",
+      "/images/Sacs/nexora-bag-bordeaux.png"
 
-    "Camel Luxury":
-      "/images/Sacs/nexora-bag-camel.png",
+    ],
 
-    
+    "Rose Blush Royal": [
+
+      "/images/Sacs/nexora-bag-rose.png"
+
+    ],
+
+    "Vert Sauge": [
+
+      "/images/Sacs/nexora-bag-green.png"
+
+    ],
+
+    "Noir Premium": [
+
+      "/images/Sacs/nexora-bag-black.png"
+
+    ],
+
+    "Camel Luxury": [
+
+      "/images/Sacs/nexora-bag-camel.png"
+
+    ]
 
   }
 
 },
+
 
 /* =========================
    CHURIDAR COLLECTION

@@ -84,11 +84,21 @@ function Product({
   const [selectedColor, setSelectedColor] =
     useState(firstColor);
 
-  const [selectedImage, setSelectedImage] =
-    useState(
-      product?.colors?.[firstColor] ||
-      product?.image
-    );
+const [selectedImage, setSelectedImage] =
+  useState(
+
+    Array.isArray(
+      product?.colors?.[firstColor]
+    )
+
+      ? product.colors[firstColor][0]
+
+      : product?.colors?.[firstColor] ||
+        product?.image
+
+  );
+  const [currentImageIndex, setCurrentImageIndex] =
+  useState(0);
 
   const [quantity, setQuantity] =
     useState(1);
@@ -126,17 +136,28 @@ function Product({
      CHANGE COLOR
   ========================= */
 
-  const handleColorChange = (
-    color
-  ) => {
+const handleColorChange = (
+  color
+) => {
 
-    setSelectedColor(color);
+  setSelectedColor(color);
 
-    setSelectedImage(
-      product.colors[color]
-    );
+  setCurrentImageIndex(0);
 
-  };
+  const colorImages =
+    product.colors[color];
+
+  setSelectedImage(
+
+    Array.isArray(colorImages)
+
+      ? colorImages[0]
+
+      : colorImages
+
+  );
+
+};
 
   /* =========================
      ADD TO CART
@@ -195,14 +216,85 @@ addToCart({
 
           {/* IMAGE */}
 
-          <div className="product-detail-image">
+         <div className="product-detail-image">
 
-            <img
-              src={selectedImage}
-              alt={product.title}
-            />
+  {Array.isArray(
+    product.colors[selectedColor]
+  ) &&
+    product.colors[selectedColor]
+      .length > 1 && (
 
-          </div>
+      <button
+        className="gallery-btn left"
+        onClick={() => {
+
+          const images =
+            product.colors[selectedColor];
+
+          const newIndex =
+            currentImageIndex === 0
+              ? images.length - 1
+              : currentImageIndex - 1;
+
+          setCurrentImageIndex(
+            newIndex
+          );
+
+          setSelectedImage(
+            images[newIndex]
+          );
+
+        }}
+      >
+
+        ‹
+
+      </button>
+
+    )}
+
+  <img
+    src={selectedImage}
+    alt={product.title}
+  />
+
+  {Array.isArray(
+    product.colors[selectedColor]
+  ) &&
+    product.colors[selectedColor]
+      .length > 1 && (
+
+      <button
+        className="gallery-btn right"
+        onClick={() => {
+
+          const images =
+            product.colors[selectedColor];
+
+          const newIndex =
+            currentImageIndex ===
+            images.length - 1
+              ? 0
+              : currentImageIndex + 1;
+
+          setCurrentImageIndex(
+            newIndex
+          );
+
+          setSelectedImage(
+            images[newIndex]
+          );
+
+        }}
+      >
+
+        ›
+
+      </button>
+
+    )}
+
+</div>
 
           {/* INFO */}
 
