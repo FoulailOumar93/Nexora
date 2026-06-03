@@ -15,6 +15,7 @@ import Boutique from "./pages/Boutique";
 import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./components/Cart";
 import Confirmation from "./pages/Confirmation";
+import Favoris from "./pages/Favoris";
 
 function App() {
 
@@ -291,7 +292,20 @@ function App() {
           element={<Support />}
         />
 
-      </Routes>
+          {/* Favoris */}
+
+        <Route
+      path="/favoris"
+      element={
+        <Favoris
+          cartCount={cartCount}
+          setIsCartOpen={setIsCartOpen}
+        />
+      }
+    />
+          </Routes>
+
+      
 
       {/* =========================
           CART

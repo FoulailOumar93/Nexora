@@ -159,7 +159,9 @@ function Footer() {
           <Link to="/checkout">
             Panier
           </Link>
-
+          <Link to="/favoris">
+            Mes favoris
+          </Link>
         </div>
 
         {/* PAIEMENT */}

@@ -10,7 +10,7 @@ import {
   useNavigate
 } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -32,7 +32,23 @@ function Navbar({
 
   const [isDropdownOpen, setIsDropdownOpen] =
     useState(false);
+  const [favoritesCount, setFavoritesCount] =
+  useState(0);
 
+useEffect(() => {
+
+  const favorites =
+    JSON.parse(
+      localStorage.getItem(
+        "nexoraFavorites"
+      )
+    ) || [];
+
+  setFavoritesCount(
+    favorites.length
+  );
+
+}, []);
   const safeSearch =
     typeof searchQuery === "string"
       ? searchQuery
@@ -325,7 +341,20 @@ function Navbar({
           </Link>
 
         )}
+<Link
+  to="/favoris"
+  className="favorite-icon"
+>
 
+  ❤️
+
+  <span className="favorite-count">
+
+    {favoritesCount}
+
+  </span>
+
+</Link>
         <div
           className="cart-icon"
           onClick={() =>
