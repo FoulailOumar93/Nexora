@@ -55,7 +55,7 @@ const products = [
     colors: {
 
       "Noir Midnight":
-        "/images/Hoodies/nexora-hoodie-jogging-premium.png",
+        "/images/Hoodies/nexora-hoodie-jogging-noir.png",
 
       "Blanc Perle":
         "/images/Hoodies/nexora-hoodie-jogging-white.png",
@@ -123,19 +123,19 @@ const products = [
     price: "49,90",
 
     image:
-      "/images/Chemises/nexora-shirt-white.png",
+      "/images/Chemises/nexora-shirt.png",
 
     sizes: ["S", "M", "L", "XL"],
 
     colors: {
 
-      Blanc:
+      'Blanc Sable':
         "/images/Chemises/nexora-shirt-white.png",
 
-      Beige:
+      'Beige Sable':
         "/images/Chemises/nexora-shirt-beige.png",
 
-      Noir:
+      'Noir Midnight':
         "/images/Chemises/nexora-shirt-black.png"
 
     }
