@@ -182,24 +182,24 @@ const products = [
   {
     id: 5,
 
-    title: "Nike Court Royale 2",
+    title: "Nexora Court Royale 2",
 
     category: "chaussures",
 
     price: "75,90",
 
     image:
-      "/images/Chaussures/nike-court-royale-2.png",
+      "/images/Chaussures/nexora-court-royale-2.png",
 
     sizes: [39, 40, 41, 42, 43, 44],
 
     colors: {
 
       Noir:
-        "/images/Chaussures/nike-court-royale-2-black.png",
+        "/images/Chaussures/nexora-court-royale-2-black.png",
 
       Blanc:
-        "/images/Chaussures/nike-court-royale-2-white.png"
+        "/images/Chaussures/nexora-court-royale-2-white.png"
 
     }
 
@@ -440,11 +440,8 @@ const products = [
 
   price: "149,90",
 
-  previewImage:
-    "/images/Sacs/nexora-bag-collection-preview.png",
-
   image:
-    "/images/Sacs/nexora-bag-collection-preview.png",
+    "/images/Sacs/nexora-bag-collection.png",
 
   sizes: ["Unique"],
 

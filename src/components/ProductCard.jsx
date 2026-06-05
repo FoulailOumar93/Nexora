@@ -60,10 +60,11 @@ function ProductCard({
     lowerTitle.includes("pants") ||
     lowerTitle.includes("trouser");
 
-  const isSneakers =
-    lowerTitle.includes("nike") ||
-    lowerTitle.includes("sneaker");
-
+const isSneakers =
+  lowerTitle.includes("sneaker") ||
+  lowerTitle.includes("sneakers") ||
+  lowerTitle.includes("court royale") ||
+  lowerTitle.includes("chaussure");
   /* =========================
      COLLECTION SAREE
   ========================= */
@@ -140,46 +141,36 @@ const toggleFavorite = () => {
 
       {/* IMAGE */}
 
-      <div
-        className={
-          isSareeCollection
-            ? "product-image-container collection-image"
-            : "product-image-container"
-        }
-      >
-  <button
-  className="favorite-btn"
-  onClick={(e) => {
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    toggleFavorite();
-
-  }}
+<div
+  className={
+    isSareeCollection
+      ? "product-image-container collection-image"
+      : "product-image-container"
+  }
 >
+  <button
+    className="favorite-btn"
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFavorite();
+    }}
+  >
+    {isFavorite ? "❤️" : "🤍"}
+  </button>
 
-  {isFavorite ? "❤️" : "🤍"}
+  <Link to={`/product/${id}`}>
+   <img
+  src={image}
+  alt={title}
+  className="product-image"
+/>
+  </Link>
 
-</button>
-
-        <Link to={`/product/${id}`}>
-
-          <img
-            src={image}
-            alt={title}
-            className="product-image"
-          />
-
-        </Link>
-
-        {/* BADGE */}
-
-        <span className="product-badge">
-          NEW DROP
-        </span>
-
-      </div>
+  <span className="product-badge">
+    NEW DROP
+  </span>
+</div>
 
       {/* INFO */}
 

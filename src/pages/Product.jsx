@@ -260,7 +260,7 @@ addToCart({
         }}
       >
 
-        ‹
+        
 
       </button>
 
@@ -564,34 +564,39 @@ addToCart({
       </main>
 {/* RELATED PRODUCTS */}
 
-<section className="related-products">
+{relatedProducts.length > 0 && (
 
-  <h2>
+  <section className="related-products">
 
-    Vous aimerez aussi
+    <h2>
 
-  </h2>
+      Vous aimerez aussi
 
-  <div className="products-grid">
+    </h2>
 
-    {relatedProducts.map(
-      (item) => (
+    <div className="products-grid">
 
-        <ProductCard
-          key={item.id}
-          id={item.id}
-          image={item.image}
-          title={item.title}
-          price={item.price}
-          addToCart={addToCart}
-        />
+      {relatedProducts.map(
+        (item) => (
 
-      )
-    )}
+          <ProductCard
+            key={item.id}
+            id={item.id}
+            image={item.image}
+            title={item.title}
+            price={item.price}
+            addToCart={addToCart}
+          />
 
-  </div>
+        )
+      )}
 
-</section>
+    </div>
+
+  </section>
+
+)}
+
       {/* SIZE GUIDE */}
 
       {showSizeGuide && (
