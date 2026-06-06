@@ -99,10 +99,10 @@ const products = [
 
     colors: {
 
-      Noir:
+      "Noir Midnight":
         "/images/T-Shirts/Nexora Exclusive T-Shirt Noir.png",
 
-      Blanc:
+      "Blanc Cassé":
         "/images/T-Shirts/Nexora Exclusive T-Shirt Blanc.png"
 
     }
