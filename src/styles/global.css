@@ -651,13 +651,20 @@ html{
   border:1px solid rgba(255,255,255,0.08);
 }
 
-.product-detail-image img{
+.product-detail-image{
   width:100%;
-  height:auto;
-  max-height:720px;
-  object-fit:contain;
+  max-width:700px;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:20px;
 }
 
+.product-detail-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
 .product-detail-info{
   max-width:550px;
 }
@@ -1623,11 +1630,8 @@ html{
     font-size:2rem;
   }
 
-  .product-image{
-    height:300px;
-  }
-
 }
+
 
 @media(max-width:700px){
 
@@ -1641,10 +1645,6 @@ html{
 
   .products-grid{
     gap:20px;
-  }
-
-  .product-image{
-    height:260px;
   }
 
 }
@@ -2357,13 +2357,16 @@ body{
   aspect-ratio:4 / 5;
 }
 
+
 /* MOBILE */
 
 @media (max-width:768px){
 
   .product-image-container{
-    aspect-ratio:9 / 16;
+    aspect-ratio:1 / 1;
   }
+
+}
 
   .product-image-container:has(.shoe-image){
     aspect-ratio:4 / 5;
@@ -2510,7 +2513,7 @@ body{
   }
 
 }
-}
+
 .gallery-btn{
   position:absolute;
   top:50%;
@@ -5212,13 +5215,13 @@ body{
 /* Collections Saree */
 
 .collection-image{
-  aspect-ratio:auto !important;
+  aspect-ratio:1 / 1 !important;
 }
 
 .collection-image .product-image{
   width:100%;
-  height:auto !important;
-  object-fit:contain !important;
+  height:100% !important;
+  object-fit:cover !important;
   display:block;
 }
 .product-info{
@@ -5714,6 +5717,23 @@ body{
   .product-detail-info{
     margin-top:0 !important;
     padding-top:0 !important;
+  }
+
+}
+@media (max-width:768px){
+
+  .product-card{
+    max-width:340px;
+  }
+
+  .product-image-container{
+    aspect-ratio:1 / 1 !important;
+  }
+
+  .product-image{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
   }
 
 }
