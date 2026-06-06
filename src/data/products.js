@@ -156,7 +156,7 @@ const products = [
     price: "59,90",
 
     image:
-      "/images/Pantalons/nexora-pants-black.png",
+      "/images/Pantalons/nexora-pants.png",
 
     sizes: [38, 40, 42, 44, 46],
 
