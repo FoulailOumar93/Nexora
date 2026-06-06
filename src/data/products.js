@@ -100,10 +100,10 @@ const products = [
     colors: {
 
       Noir:
-        "/images/T-Shirts/Nexora Exclusive T-Shirt.png",
+        "/images/T-Shirts/Nexora Exclusive T-Shirt Noir.png",
 
       Blanc:
-        "/images/T-Shirts/Nexora Exclusive T-Shirt.png"
+        "/images/T-Shirts/Nexora Exclusive T-Shirt Blanc.png"
 
     }
 
@@ -613,13 +613,13 @@ const products = [
 
     colors: {
 
-      Blanc:
+      "Blanc Éclat":
         "/images/Veshti/nexora-veshti-shirt-white.png",
 
-      Vert:
+      "Vert Émeraude":
         "/images/Veshti/nexora-veshti-shirt-green.png",
 
-      Bordeaux:
+      "Bordeaux Royal":
         "/images/Veshti/nexora-veshti-shirt-bordeaux.png",
 
 
