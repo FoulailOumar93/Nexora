@@ -237,32 +237,32 @@ addToCart({
     product.colors[selectedColor]
       .length > 1 && (
 
-      <button
-        className="gallery-btn left"
-        onClick={() => {
+<button
+  className="gallery-btn left"
+  onClick={() => {
 
-          const images =
-            product.colors[selectedColor];
+    const images =
+      product.colors[selectedColor];
 
-          const newIndex =
-            currentImageIndex === 0
-              ? images.length - 1
-              : currentImageIndex - 1;
+    const newIndex =
+      currentImageIndex === 0
+        ? images.length - 1
+        : currentImageIndex - 1;
 
-          setCurrentImageIndex(
-            newIndex
-          );
+    setCurrentImageIndex(
+      newIndex
+    );
 
-          setSelectedImage(
-            images[newIndex]
-          );
+    setSelectedImage(
+      images[newIndex]
+    );
 
-        }}
-      >
+  }}
+>
 
-        
+  ‹
 
-      </button>
+</button>
 
     )}
 
