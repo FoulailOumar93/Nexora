@@ -2,7 +2,9 @@ import {
   FaShoppingBag,
   FaSearch,
   FaUser,
-  FaChevronDown
+  FaChevronDown,
+  FaBars,
+  FaTimes
 } from "react-icons/fa";
 
 import {
@@ -23,32 +25,34 @@ function Navbar({
   setSearchQuery = () => {}
 }) {
 
-  const {
-    user,
-    logout
-  } = useAuth();
+  const { user, logout } = useAuth();
 
   const navigate = useNavigate();
 
   const [isDropdownOpen, setIsDropdownOpen] =
     useState(false);
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useState(false);
+
   const [favoritesCount, setFavoritesCount] =
-  useState(0);
+    useState(0);
 
-useEffect(() => {
+  useEffect(() => {
 
-  const favorites =
-    JSON.parse(
-      localStorage.getItem(
-        "nexoraFavorites"
-      )
-    ) || [];
+    const favorites =
+      JSON.parse(
+        localStorage.getItem(
+          "nexoraFavorites"
+        )
+      ) || [];
 
-  setFavoritesCount(
-    favorites.length
-  );
+    setFavoritesCount(
+      favorites.length
+    );
 
-}, []);
+  }, []);
+
   const safeSearch =
     typeof searchQuery === "string"
       ? searchQuery
@@ -63,34 +67,55 @@ useEffect(() => {
         )
     );
 
+  const closeMenus = () => {
+
+    setIsDropdownOpen(false);
+    setIsMobileMenuOpen(false);
+
+  };
+
   return (
 
-    <nav className="navbar">
+<nav className="navbar">
 
-      <Link
-        to="/"
-        className="logo-container"
-      >
+  <button
+    className="mobile-menu-btn"
+    onClick={() =>
+      setIsMobileMenuOpen(
+        !isMobileMenuOpen
+      )
+    }
+  >
+    {isMobileMenuOpen
+      ? <FaTimes />
+      : <FaBars />}
+  </button>
 
-        <img
-          src="/logo.png"
-          alt="Nexora"
-          className="site-logo"
-        />
+  <Link
+    to="/"
+    className="logo-container"
+    onClick={closeMenus}
+  >
 
-        <div>
+    <img
+      src="/logo.png"
+      alt="Nexora"
+      className="site-logo"
+    />
 
-          <h1 className="logo">
-            NEXORA
-          </h1>
+    <div>
 
-          <p className="logo-subtitle">
-            Fashion • Streetwear • Lifestyle
-          </p>
+      <h1 className="logo">
+        NEXORA
+      </h1>
 
-        </div>
+      <p className="logo-subtitle">
+        Fashion • Streetwear • Lifestyle
+      </p>
 
-      </Link>
+    </div>
+
+  </Link>
 
       <ul className="nav-links">
 
@@ -131,90 +156,70 @@ useEffect(() => {
 
               <Link
                 to="/boutique"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Tous les produits
               </Link>
 
               <Link
                 to="/boutique/hoodies"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Hoodies
               </Link>
 
               <Link
                 to="/boutique/tshirts"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 T-Shirts
               </Link>
 
               <Link
                 to="/boutique/chemises"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Chemises
               </Link>
 
               <Link
                 to="/boutique/pantalons"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Pantalons
               </Link>
 
               <Link
                 to="/boutique/chaussures"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Chaussures
               </Link>
 
               <Link
                 to="/boutique/sacs"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Sacs
               </Link>
 
               <Link
                 to="/boutique/sarees"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Sarees
               </Link>
 
               <Link
                 to="/boutique/churidar"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Churidar
               </Link>
 
               <Link
                 to="/boutique/veshti"
-                onClick={() =>
-                  setIsDropdownOpen(false)
-                }
+                onClick={closeMenus}
               >
                 Veshti
               </Link>
@@ -234,10 +239,7 @@ useEffect(() => {
         </li>
 
       </ul>
-
-      <div className="nav-icons">
-
-        <div className="search-wrapper">
+ <div className="search-wrapper">
 
           <div className="search-box">
 
@@ -275,6 +277,8 @@ useEffect(() => {
                         );
 
                         setSearchQuery("");
+
+                        closeMenus();
 
                       }}
                     >
@@ -315,6 +319,8 @@ useEffect(() => {
 
         </div>
 
+      <div className="nav-icons">
+
         {user ? (
 
           <div className="user-box">
@@ -334,6 +340,7 @@ useEffect(() => {
           <Link
             to="/login"
             className="user-link"
+            onClick={closeMenus}
           >
 
             <FaUser />
@@ -341,20 +348,23 @@ useEffect(() => {
           </Link>
 
         )}
-<Link
-  to="/favoris"
-  className="favorite-icon"
->
 
-  ❤️
+        <Link
+          to="/favoris"
+          className="favorite-icon"
+          onClick={closeMenus}
+        >
 
-  <span className="favorite-count">
+          ❤️
 
-    {favoritesCount}
+          <span className="favorite-count">
 
-  </span>
+            {favoritesCount}
 
-</Link>
+          </span>
+
+        </Link>
+
         <div
           className="cart-icon"
           onClick={() =>
@@ -365,12 +375,81 @@ useEffect(() => {
           <FaShoppingBag />
 
           <span className="cart-count">
+
             {cartCount}
+
           </span>
 
         </div>
 
       </div>
+
+      {isMobileMenuOpen && (
+
+        <div className="mobile-menu">
+
+          <Link to="/" onClick={closeMenus}>
+            Accueil
+          </Link>
+
+          <Link to="/boutique" onClick={closeMenus}>
+            Boutique
+          </Link>
+
+          <Link to="/boutique/hoodies" onClick={closeMenus}>
+            Hoodies
+          </Link>
+
+          <Link to="/boutique/tshirts" onClick={closeMenus}>
+            T-Shirts
+          </Link>
+
+          <Link to="/boutique/chemises" onClick={closeMenus}>
+            Chemises
+          </Link>
+
+          <Link to="/boutique/pantalons" onClick={closeMenus}>
+            Pantalons
+          </Link>
+
+          <Link to="/boutique/chaussures" onClick={closeMenus}>
+            Chaussures
+          </Link>
+
+          <Link to="/boutique/sacs" onClick={closeMenus}>
+            Sacs
+          </Link>
+
+          <Link to="/boutique/sarees" onClick={closeMenus}>
+            Sarees
+          </Link>
+
+          <Link to="/boutique/churidar" onClick={closeMenus}>
+            Churidar
+          </Link>
+
+          <Link to="/boutique/veshti" onClick={closeMenus}>
+            Veshti
+          </Link>
+
+          <Link to="/support" onClick={closeMenus}>
+            Support
+          </Link>
+
+          {!user && (
+
+            <Link
+              to="/login"
+              onClick={closeMenus}
+            >
+              Connexion
+            </Link>
+
+          )}
+
+        </div>
+
+      )}
 
     </nav>
 
