@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 
 import { useAuth } from "../context/AuthContext";
 
-import products from "../data/products";
+import axios from "axios";
 
 function Navbar({
   cartCount = 0,
@@ -37,8 +37,12 @@ function Navbar({
 
   const [favoritesCount, setFavoritesCount] =
     useState(0);
+  const [products, setProducts] =
+  useState([]);
 
-  useEffect(() => {
+useEffect(() => {
+
+  const updateFavorites = () => {
 
     const favorites =
       JSON.parse(
@@ -51,7 +55,50 @@ function Navbar({
       favorites.length
     );
 
-  }, []);
+  };
+
+  updateFavorites();
+
+ window.addEventListener(
+  "favoritesUpdated",
+  updateFavorites
+);
+
+  return () => {
+
+    window.removeEventListener(
+  "favoritesUpdated",
+  updateFavorites
+  );
+
+  };
+
+}, []);
+
+useEffect(() => {
+
+  axios
+    .get(
+      "http://localhost:3000/products"
+    )
+    .then((response) => {
+
+      setProducts(
+        response.data
+      );
+
+    })
+    .catch((error) => {
+
+      console.error(
+        error
+      );
+
+    });
+
+}, []);
+
+
 
   const safeSearch =
     typeof searchQuery === "string"
@@ -321,34 +368,13 @@ function Navbar({
 
       <div className="nav-icons">
 
-        {user ? (
-
-          <div className="user-box">
-
-            <span>
-              Bonjour {user.name}
-            </span>
-
-            <button onClick={logout}>
-              Logout
-            </button>
-
-          </div>
-
-        ) : (
-
-          <Link
-            to="/login"
-            className="user-link"
-            onClick={closeMenus}
-          >
-
-            <FaUser />
-
-          </Link>
-
-        )}
-
+        <Link
+          to={user ? "/member" : "/login"}
+          className="user-link"
+          onClick={closeMenus}
+        >
+          <FaUser />
+        </Link>
         <Link
           to="/favoris"
           className="favorite-icon"
@@ -431,7 +457,12 @@ function Navbar({
           <Link to="/boutique/veshti" onClick={closeMenus}>
             Veshti
           </Link>
-
+<Link
+  to={user ? "/member" : "/login"}
+  onClick={closeMenus}
+>
+  {user ? "Mon compte" : "Connexion"}
+</Link>
           <Link to="/support" onClick={closeMenus}>
             Support
           </Link>

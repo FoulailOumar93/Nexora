@@ -1,13 +1,29 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState } from "react";
+import axios from "axios";
+function Checkout({
+  cartCount,
+  setIsCartOpen
+}) {
 
-function Checkout() {
- const [promoCode, setPromoCode] =
+  const [promoCode, setPromoCode] =
     useState("");
 
   const [discount, setDiscount] =
     useState(0);
+
+  const [deliveryType, setDeliveryType] =
+    useState("home");
+
+  const [relayPoint, setRelayPoint] =
+    useState("");
+
+  const [
+    nearbyRelays,
+    setNearbyRelays
+  ] = useState([]);
+
   const cart =
     JSON.parse(
       localStorage.getItem("nexoraCart")
@@ -29,44 +45,75 @@ function Checkout() {
 
     }, 0);
 
-  const monthlyPayment =
-    total / 3;
-const finalTotal =
-  total - discount;
-    const applyPromoCode = () => {
+  const finalTotal =
+    total - discount;
 
-  const code =
-    promoCode.toUpperCase();
+  const applyPromoCode = () => {
 
-  if (code === "NEXORA10") {
+    const code =
+      promoCode.toUpperCase();
 
-    setDiscount(total * 0.10);
+    if (code === "NEXORA10") {
 
-  } else if (
-    code === "WELCOME15"
-  ) {
+      setDiscount(total * 0.10);
 
-    setDiscount(total * 0.15);
+    } else if (code === "WELCOME15") {
 
-  } else if (
-    code === "PREMIUM20"
-  ) {
+      setDiscount(total * 0.15);
 
-    setDiscount(total * 0.20);
+    } else if (code === "PREMIUM20") {
 
-  } else {
+      setDiscount(total * 0.20);
 
-    setDiscount(0);
+    } else {
 
-    alert(
-      "Code promo invalide"
+      setDiscount(0);
+
+      alert("Code promo invalide");
+
+    }
+
+  };
+
+  const detectLocation = () => {
+
+    if (!navigator.geolocation) {
+
+      alert(
+        "La géolocalisation n'est pas disponible."
+      );
+
+      return;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+      () => {
+
+        setNearbyRelays([
+          "Mondial Relay - La Courneuve Centre",
+          "Mondial Relay - Carrefour Drancy",
+          "Relais Colis - Saint-Denis Gare",
+          "Mondial Relay - Aubervilliers"
+        ]);
+
+      },
+
+      () => {
+
+        alert(
+          "Impossible de récupérer votre position."
+        );
+
+      }
+
     );
 
-  }
+  };
 
-};
-
-  const handlePayment = () => {
+  const handlePayment =
+  async () => {
 
     if (cart.length === 0) {
 
@@ -78,39 +125,85 @@ const finalTotal =
 
     }
 
-    alert(
-      "✅ Paiement validé !\n\nMerci pour votre commande sur Nexora."
+    if (
+      deliveryType === "relay" &&
+      !relayPoint
+    ) {
+
+      alert(
+        "Veuillez choisir un point relais."
+      );
+
+      return;
+
+    }
+
+  try {
+
+  const token =
+    localStorage.getItem(
+      "nexoraToken"
     );
 
-    localStorage.removeItem(
-      "nexoraCart"
-    );
+  await axios.post(
+    "http://localhost:3000/orders",
+    {
+      total: finalTotal
+    },
+    {
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
 
-    window.location.href =
+  console.log(
+    "COMMANDE CRÉÉE"
+  );
+
+  alert(
+    "✅ Paiement validé !"
+  );
+
+  localStorage.removeItem(
+    "nexoraCart"
+  );
+
+  window.location.href =
+    "/confirmation";
+
+} catch (error) {
+
+  console.error(error);
+
+  alert(
+    "Erreur lors de la création de la commande"
+  );
+
+localStorage.removeItem(
+  "nexoraCart"
+);
+
+window.location.href =
   "/confirmation";
-
-  };
-
+    }
+    }
   return (
 
     <>
 
       <Navbar
-        cartCount={0}
-        setIsCartOpen={() => {}}
-      />
-
+  cartCount={cartCount}
+  setIsCartOpen={setIsCartOpen}
+/>
       <main className="checkout-page">
-
-        {/* LEFT */}
 
         <div className="checkout-left">
 
           <h1>
             Checkout
           </h1>
-
-          {/* CONTACT */}
 
           <div className="checkout-section">
 
@@ -144,41 +237,151 @@ const finalTotal =
 
           </div>
 
-          {/* DELIVERY */}
-
           <div className="checkout-section">
 
             <h2>
               Livraison
             </h2>
 
-            <input
-              type="text"
-              placeholder="Adresse"
-            />
+            <div className="delivery-choice">
 
-            <div className="checkout-grid">
+              <label>
+                <input
+                  type="radio"
+                  name="delivery"
+                  value="home"
+                  checked={
+                    deliveryType === "home"
+                  }
+                  onChange={(e) =>
+                    setDeliveryType(
+                      e.target.value
+                    )
+                  }
+                />
+                Livraison à domicile
+              </label>
 
-              <input
-                type="text"
-                placeholder="Ville"
-              />
-
-              <input
-                type="text"
-                placeholder="Code postal"
-              />
+              <label>
+                <input
+                  type="radio"
+                  name="delivery"
+                  value="relay"
+                  checked={
+                    deliveryType === "relay"
+                  }
+                  onChange={(e) =>
+                    setDeliveryType(
+                      e.target.value
+                    )
+                  }
+                />
+                Point relais
+              </label>
 
             </div>
 
-            <input
-              type="text"
-              placeholder="Pays"
-            />
+            {deliveryType === "home" ? (
+
+              <>
+
+                <input
+                  type="text"
+                  placeholder="Adresse"
+                />
+
+                <div className="checkout-grid">
+
+                  <input
+                    type="text"
+                    placeholder="Ville"
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="Code postal"
+                  />
+
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Pays"
+                />
+
+              </>
+
+            ) : (
+
+              <>
+
+                <button
+                  type="button"
+                  className="location-btn"
+                  onClick={detectLocation}
+                >
+                  📍 Utiliser ma position
+                </button>
+
+                <select
+                  value={relayPoint}
+                  onChange={(e) =>
+                    setRelayPoint(
+                      e.target.value
+                    )
+                  }
+                >
+
+                  <option value="">
+                    Choisir un point relais
+                  </option>
+
+                  {nearbyRelays.length > 0 ? (
+
+                    nearbyRelays.map(
+                      (relay, index) => (
+
+                        <option
+                          key={index}
+                          value={relay}
+                        >
+                          {relay}
+                        </option>
+
+                      )
+                    )
+
+                  ) : (
+
+                    <>
+
+                      <option value="Mondial Relay - Carrefour Drancy">
+                        Mondial Relay - Carrefour Drancy
+                      </option>
+
+                      <option value="Mondial Relay - La Courneuve Centre">
+                        Mondial Relay - La Courneuve Centre
+                      </option>
+
+                      <option value="Relais Colis - Saint-Denis Gare">
+                        Relais Colis - Saint-Denis Gare
+                      </option>
+
+                      <option value="Mondial Relay - Aubervilliers">
+                        Mondial Relay - Aubervilliers
+                      </option>
+
+                    </>
+
+                  )}
+
+                </select>
+
+              </>
+
+            )}
 
           </div>
-
-          {/* PAYMENT */}
 
           <div className="checkout-section">
 
@@ -226,8 +429,6 @@ const finalTotal =
 
         </div>
 
-        {/* RIGHT */}
-
         <div className="checkout-right">
 
           <div className="summary-box">
@@ -244,18 +445,17 @@ const finalTotal =
 
             ) : (
 
-              cart.map(
-                (item, index) => {
+              cart.map((item, index) => {
 
-                  const itemTotal =
-                    parseFloat(
-                      String(item.price)
-                        .replace(",", ".")
-                        .replace("€", "")
-                    ) *
-                    (item.quantity || 1);
+                const itemTotal =
+                  parseFloat(
+                    String(item.price)
+                      .replace(",", ".")
+                      .replace("€", "")
+                  ) *
+                  (item.quantity || 1);
 
-                  return (
+                return (
 
                   <div
                     className="summary-item checkout-product-item"
@@ -298,63 +498,58 @@ const finalTotal =
 
                   </div>
 
-                  );
+                );
 
-                }
-              )
+              })
 
             )}
 
             <div className="promo-box">
 
-  <input
-    type="text"
-    placeholder="Code promo"
-    value={promoCode}
-    onChange={(e) =>
-      setPromoCode(
-        e.target.value
-      )
-    }
-  />
+              <input
+                type="text"
+                placeholder="Code promo"
+                value={promoCode}
+                onChange={(e) =>
+                  setPromoCode(
+                    e.target.value
+                  )
+                }
+              />
 
-  <button
-    type="button"
-    onClick={applyPromoCode}
-  >
+              <button
+                type="button"
+                onClick={applyPromoCode}
+              >
+                Appliquer
+              </button>
 
-    Appliquer
-
-  </button>
-
-</div>
+            </div>
 
             <div className="summary-total">
-{discount > 0 && (
 
-  <div className="summary-item">
+              {discount > 0 && (
 
-    <span>
-      Réduction
-    </span>
+                <div className="summary-item">
 
-    <span>
+                  <span>
+                    Réduction
+                  </span>
 
-      -{discount.toFixed(2)}€
+                  <span>
+                    -{discount.toFixed(2)}€
+                  </span>
 
-    </span>
+                </div>
 
-  </div>
+              )}
 
-)}
               <span>
                 Total
               </span>
 
               <span>
-
                 {finalTotal.toFixed(2)}€
-
               </span>
 
             </div>
@@ -364,18 +559,12 @@ const finalTotal =
               <div className="installments">
 
                 <h3>
-
-                  Paiement en 3x
-                  sans frais
-
+                  Paiement en 3x sans frais
                 </h3>
 
                 <p>
-
-                  3 mensualités de
-                  {" "}
+                  3 mensualités de{" "}
                   {(finalTotal / 3).toFixed(2)}€
-
                 </p>
 
               </div>
@@ -386,9 +575,7 @@ const finalTotal =
               className="pay-btn"
               onClick={handlePayment}
             >
-
               Payer maintenant
-
             </button>
 
           </div>

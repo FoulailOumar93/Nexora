@@ -5,75 +5,97 @@ import Footer from "../components/Footer";
 
 function Confirmation() {
 
-  const orderNumber =
-    `NX-${Date.now()}`;
+const lastOrder =
+JSON.parse(
+localStorage.getItem(
+"lastOrder"
+)
+);
 
-  return (
+return (
 
-    <>
 
-      <Navbar
-        cartCount={0}
-        setIsCartOpen={() => {}}
-      />
+<>
 
-      <main className="confirmation-page">
+  <Navbar
+    cartCount={0}
+    setIsCartOpen={() => {}}
+  />
 
-        <div className="confirmation-box">
+  <main className="confirmation-page">
 
-          <h1>
+    <div className="confirmation-box">
 
-            ✅ Commande confirmée
+      <h1>
 
-          </h1>
+        ✅ Commande confirmée
 
-          <p>
+      </h1>
 
-            Merci pour votre commande
-            chez Nexora.
+      <p>
 
-          </p>
+        Merci pour votre commande
+        chez Nexora.
 
-          <p>
+      </p>
 
-            Numéro de commande :
+      <p>
 
-          </p>
+        Numéro de commande :
 
-          <strong>
+      </p>
 
-            {orderNumber}
+      <strong>
 
-          </strong>
+        {lastOrder?.id}
 
-          <p>
+      </strong>
 
-            Un email de confirmation
-            vous sera envoyé prochainement.
+      <p>
 
-          </p>
+        Date :
+        {" "}
+        {lastOrder?.date}
 
-          <Link to="/">
+      </p>
 
-            <button
-              className="pay-btn"
-            >
+      <p>
 
-              Retour à l'accueil
+        Total :
+        {" "}
+        {lastOrder?.total?.toFixed(2)}€
 
-            </button>
+      </p>
 
-          </Link>
+      <p>
 
-        </div>
+        Un email de confirmation
+        vous sera envoyé prochainement.
 
-      </main>
+      </p>
 
-      <Footer />
+      <Link to="/">
 
-    </>
+        <button
+          className="pay-btn"
+        >
 
-  );
+          Retour à l'accueil
+
+        </button>
+
+      </Link>
+
+    </div>
+
+  </main>
+
+  <Footer />
+
+</>
+
+
+);
 
 }
 

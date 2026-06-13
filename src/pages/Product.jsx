@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { Link, useParams } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import axios from "axios";
 
 function Product({
   cartCount,
@@ -13,71 +13,14 @@ function Product({
 }) {
 
   const { id } = useParams();
+const [product, setProduct] =
+  useState(null);
 
-  const product =
-    products.find(
-      (item) =>
-        item.id === Number(id)
-    );
-    const relatedProducts =
-  products
-    .filter(
+const [relatedProducts, setRelatedProducts] =
+  useState([]);
 
-      (item) =>
-
-        item.category ===
-          product?.category &&
-
-        item.id !== product?.id
-
-    )
-    .slice(0, 4);
-
-  /* =========================
-     PRODUCT NOT FOUND
-  ========================= */
-
-  if (!product) {
-
-    return (
-
-      <>
-
-        <Navbar
-          cartCount={cartCount}
-          setIsCartOpen={setIsCartOpen}
-        />
-
-        <main className="product-page">
-
-          <h1>
-
-            Produit introuvable
-
-          </h1>
-
-          <Link
-            to="/"
-            className="back-link"
-          >
-
-            Retour à la boutique
-
-          </Link>
-
-        </main>
-
-        <Footer />
-
-      </>
-
-    );
-
-  }
-
-  /* =========================
-     STATES
-  ========================= */
+const [loading, setLoading] =
+  useState(true);
 
   const firstColor =
     product?.colors
@@ -85,31 +28,104 @@ function Product({
       : "";
 
   const [selectedSize, setSelectedSize] =
-    useState(
-      product?.sizes?.[0] || ""
-    );
+  useState("");
 
-  const [selectedBlouseSize, setSelectedBlouseSize] =
-    useState(
-      product?.blouseSizes?.[0] || ""
-    );
+ const [selectedBlouseSize, setSelectedBlouseSize] =
+  useState("");
 
-  const [selectedColor, setSelectedColor] =
-    useState(firstColor);
+ const [selectedColor, setSelectedColor] =
+  useState("");
 
-const [selectedImage, setSelectedImage] =
-  useState(
+ const [selectedImage, setSelectedImage] =
+  useState("");
+
+  useEffect(() => {
+
+  axios
+    .get(
+      `http://localhost:3000/products/${id}`
+    )
+    .then((response) => {
+
+      setProduct(
+        response.data
+      );
+
+      return axios.get(
+        "http://localhost:3000/products"
+      );
+
+    })
+    .then((response) => {
+
+      const currentProduct =
+        response.data.find(
+          (item) =>
+            item.id === Number(id)
+        );
+
+      const related =
+        response.data
+          .filter(
+            (item) =>
+              item.category ===
+                currentProduct.category &&
+              item.id !==
+                currentProduct.id
+          )
+          .slice(0, 4);
+
+      setRelatedProducts(
+        related
+      );
+
+      setLoading(false);
+
+    })
+    .catch((error) => {
+
+      console.error(error);
+
+      setLoading(false);
+
+    });
+
+}, [id]);
+  
+useEffect(() => {
+
+  if (!product) return;
+
+  
+  setSelectedSize(
+    product.sizes?.[0] || ""
+  );
+
+ setSelectedBlouseSize(
+  product.blouse_sizes?.[0] || ""
+  );
+  setSelectedColor(
+    firstColor
+  );
+
+  setSelectedImage(
 
     Array.isArray(
-      product?.colors?.[firstColor]
+      product.colors?.[firstColor]
     )
 
       ? product.colors[firstColor][0]
 
-      : product?.colors?.[firstColor] ||
-        product?.image
+      : product.colors?.[firstColor] ||
+        product.image
 
   );
+
+}, [product]);
+  /* =========================
+     STATES
+  ========================= */
+
   const [currentImageIndex, setCurrentImageIndex] =
   useState(0);
 
@@ -120,7 +136,60 @@ const [selectedImage, setSelectedImage] =
     useState(false);
 
   const [error, setError] =
-    useState("");
+  useState("");
+
+if (loading) {
+
+  return (
+
+    <>
+      <Navbar
+        cartCount={cartCount}
+        setIsCartOpen={setIsCartOpen}
+      />
+
+      <main className="product-page">
+
+        <h1>
+          Chargement...
+
+        </h1>
+
+      </main>
+
+      <Footer />
+
+    </>
+
+  );
+
+}
+
+if (!product) {
+
+  return (
+
+    <>
+      <Navbar
+        cartCount={cartCount}
+        setIsCartOpen={setIsCartOpen}
+      />
+
+      <main className="product-page">
+
+        <h1>
+          Produit introuvable
+        </h1>
+
+      </main>
+
+      <Footer />
+
+    </>
+
+  );
+
+}
 
   /* =========================
      CATEGORY TYPES
@@ -400,7 +469,7 @@ addToCart({
 
             {/* BLOUSE SIZE */}
 
-            {product.blouseSizes && (
+            {product.blouse_sizes && (
 
               <div className="option-block">
 
@@ -412,7 +481,7 @@ addToCart({
 
                 <div className="sizes">
 
-                  {product.blouseSizes.map((size) => (
+                  {product.blouse_sizes.map((size) => (
 
                     <span
                       key={size}

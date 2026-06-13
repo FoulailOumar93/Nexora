@@ -16,7 +16,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./components/Cart";
 import Confirmation from "./pages/Confirmation";
 import Favoris from "./pages/Favoris";
-
+import MemberPage from "./pages/MemberPage";
+import Admin from "./pages/Admin";
 function App() {
 
   /* =========================
@@ -71,7 +72,28 @@ function App() {
         total + (item.quantity || 1),
       0
     );
+const [favorites, setFavorites] =
+  useState(() => {
 
+    const savedFavorites =
+      localStorage.getItem(
+        "nexoraFavorites"
+      );
+
+    return savedFavorites
+      ? JSON.parse(savedFavorites)
+      : [];
+
+  });
+
+  useEffect(() => {
+
+  localStorage.setItem(
+    "nexoraFavorites",
+    JSON.stringify(favorites)
+  );
+
+}, [favorites]);
   /* =========================
      ADD TO CART
   ========================= */
@@ -260,9 +282,14 @@ function App() {
        {/* CHECKOUT */}
 
         <Route
-          path="/checkout"
-          element={<Checkout />}
-        />
+  path="/checkout"
+  element={
+    <Checkout
+      cartCount={cartCount}
+      setIsCartOpen={setIsCartOpen}
+    />
+  }
+/>
 
         {/* CONFIRMATION */}
 
@@ -291,7 +318,19 @@ function App() {
           path="/support"
           element={<Support />}
         />
-
+       <Route
+  path="/member"
+  element={
+    <MemberPage
+      cartCount={cartCount}
+      setIsCartOpen={setIsCartOpen}
+    />
+  }
+/>
+        <Route
+        path="/admin"
+        element={<Admin />}
+       />
           {/* Favoris */}
 
      <Route
@@ -302,7 +341,9 @@ function App() {
       setIsCartOpen={setIsCartOpen}
       addToCart={addToCart}
     />
+    
   }
+  
 />
           </Routes>
 

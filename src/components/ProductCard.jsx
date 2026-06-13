@@ -115,6 +115,10 @@ const toggleFavorite = () => {
       JSON.stringify(updated)
     );
 
+    window.dispatchEvent(
+      new Event("favoritesUpdated")
+    );
+
     setIsFavorite(false);
 
   } else {
@@ -127,6 +131,10 @@ const toggleFavorite = () => {
     localStorage.setItem(
       "nexoraFavorites",
       JSON.stringify(updated)
+    );
+
+    window.dispatchEvent(
+      new Event("favoritesUpdated")
     );
 
     setIsFavorite(true);

@@ -1,4 +1,6 @@
-import products from "../data/products";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
 
 import ProductCard from "./ProductCard";
 
@@ -7,6 +9,40 @@ function Products({
   searchQuery = "",
   selectedCategory = ""
 }) {
+
+  const [products, setProducts] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  useEffect(() => {
+
+    axios
+      .get(
+        "http://localhost:3000/products"
+      )
+      .then((response) => {
+
+        setProducts(
+          response.data
+        );
+
+      })
+      .catch((error) => {
+
+        console.error(
+          error
+        );
+
+      })
+      .finally(() => {
+
+        setLoading(false);
+
+      });
+
+  }, []);
 
   /* =========================
      CATEGORY TITLES
@@ -77,6 +113,30 @@ function Products({
 
   };
 
+  if (loading) {
+
+    return (
+
+      <section
+        className="products-section"
+      >
+
+        <div
+          className="products-header"
+        >
+
+          <h2>
+            Chargement...
+          </h2>
+
+        </div>
+
+      </section>
+
+    );
+
+  }
+
   /* =========================
      FILTER PRODUCTS
   ========================= */
@@ -86,17 +146,19 @@ function Products({
 
       const matchesSearch =
         product.title
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(
             searchQuery.toLowerCase()
           );
 
-      let matchesCategory = true;
+      let matchesCategory =
+        true;
 
       if (selectedCategory) {
 
         if (
-          selectedCategory === "sarees"
+          selectedCategory ===
+          "sarees"
         ) {
 
           matchesCategory =
@@ -157,33 +219,25 @@ function Products({
       className="products-section"
     >
 
-      {/* =========================
-          TITLE
-      ========================= */}
-
-      <div className="products-header">
+      <div
+        className="products-header"
+      >
 
         <h2>
-
           {pageTitle}
-
         </h2>
 
         <p>
-
           {pageDescription}
-
         </p>
 
       </div>
 
-      {/* =========================
-          PRODUCTS GRID
-      ========================= */}
-
       {filteredProducts.length > 0 ? (
 
-        <div className="products-grid">
+        <div
+          className="products-grid"
+        >
 
           {filteredProducts.map(
             (product) => (
@@ -204,19 +258,17 @@ function Products({
 
       ) : (
 
-        <div className="no-products">
+        <div
+          className="no-products"
+        >
 
           <h3>
-
             Aucun produit trouvé
-
           </h3>
 
           <p>
-
             Essayez une autre
             catégorie ou recherche.
-
           </p>
 
         </div>
@@ -228,5 +280,4 @@ function Products({
   );
 
 }
-
 export default Products;
