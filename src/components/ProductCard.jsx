@@ -234,7 +234,7 @@ const toggleFavorite = () => {
           to={`/product/${id}`}
           className="add-cart-btn"
        >
-          Voir les détails
+          Voir Les Détails
       </Link>
       </div>
 
