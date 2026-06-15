@@ -120,6 +120,11 @@ if (loading) {
 
 }
 
+if (!user) {
+
+  return null;
+
+}
 
   return (
 
@@ -148,22 +153,22 @@ if (loading) {
 
             <p>
               <strong>Prénom :</strong>{" "}
-              {user.firstName}
+              {user?.firstName}
             </p>
 
             <p>
               <strong>Nom :</strong>{" "}
-              {user.lastName}
+              {user?.lastName}
             </p>
 
             <p>
               <strong>Email :</strong>{" "}
-              {user.email}
+              {user?.email}
             </p>
 
             <p>
               <strong>Rôle :</strong>{" "}
-              {user.role}
+              {user?.role}
             </p>
 
           </div>
@@ -248,7 +253,79 @@ if (loading) {
                         "fr-FR"
                       )}
                     </p>
+                      {order.items &&
+  order.items.length > 0 && (
 
+    <div
+      style={{
+        marginTop: "1rem"
+      }}
+    >
+
+      <h4>
+        Produits commandés
+      </h4>
+
+      {order.items.map(
+        (item) => (
+
+          <div
+            key={item.id}
+            style={{
+            padding: "1rem",
+            marginTop: "0.75rem",
+            background: "#0f0f0f",
+            border: "1px solid #d4af37",
+            borderRadius: "8px"
+          }}
+          >
+
+            <p>
+              <strong>
+                {item.title}
+              </strong>
+            </p>
+
+            <p>
+              Quantité :
+              {" "}
+              {item.quantity}
+            </p>
+
+            {item.selected_color && (
+
+              <p>
+                Couleur :
+                {" "}
+                {item.selected_color}
+              </p>
+
+            )}
+
+            {item.selected_size && (
+
+              <p>
+                Taille :
+                {" "}
+                {item.selected_size}
+              </p>
+
+            )}
+
+            <p>
+              Prix :
+              {" "}
+              {item.price}€
+            </p>
+
+          </div>
+
+        )
+      )}
+
+    </div>
+
+)}
                   </div>
 
                 )

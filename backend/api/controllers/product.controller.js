@@ -48,9 +48,9 @@ async function getProducts(
 
   try {
 
-    const products =
-      await Product.findAll();
-
+    const products = await Product.findAll({
+  order: [["id", "ASC"]]
+});
     res.json(
       products
     );

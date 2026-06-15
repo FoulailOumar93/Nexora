@@ -3,6 +3,11 @@ const Order =
     "../models/order.model"
   );
 
+const OrderItem =
+  require(
+    "../models/orderItem.model"
+  );
+
 async function getOrders(
   req,
   res
@@ -14,10 +19,8 @@ async function getOrders(
       await Order.findAll({
 
         where: {
-
           user_id:
             req.user.id
-
         },
 
         order: [
@@ -26,8 +29,34 @@ async function getOrders(
 
       });
 
+    const ordersWithItems =
+      await Promise.all(
+
+        orders.map(
+          async (order) => {
+
+            const items =
+              await OrderItem.findAll({
+
+                where: {
+                  order_id:
+                    order.id
+                }
+
+              });
+
+            return {
+              ...order.toJSON(),
+              items
+            };
+
+          }
+        )
+
+      );
+
     res.json(
-      orders
+      ordersWithItems
     );
 
   } catch (error) {
@@ -37,10 +66,8 @@ async function getOrders(
     );
 
     res.status(500).json({
-
       message:
         "Erreur serveur"
-
     });
 
   }
@@ -63,8 +90,34 @@ async function getAllOrders(
 
       });
 
+    const ordersWithItems =
+      await Promise.all(
+
+        orders.map(
+          async (order) => {
+
+            const items =
+              await OrderItem.findAll({
+
+                where: {
+                  order_id:
+                    order.id
+                }
+
+              });
+
+            return {
+              ...order.toJSON(),
+              items
+            };
+
+          }
+        )
+
+      );
+
     res.json(
-      orders
+      ordersWithItems
     );
 
   } catch (error) {
@@ -74,10 +127,8 @@ async function getAllOrders(
     );
 
     res.status(500).json({
-
       message:
         "Erreur serveur"
-
     });
 
   }
@@ -95,11 +146,6 @@ async function createOrder(
       total,
       items
     } = req.body;
-
-    const OrderItem =
-      require(
-        "../models/orderItem.model"
-      );
 
     const order =
       await Order.create({
@@ -155,9 +201,9 @@ async function createOrder(
 
     }
 
-    res
-      .status(201)
-      .json(order);
+    res.status(201).json(
+      order
+    );
 
   } catch (error) {
 
@@ -166,10 +212,8 @@ async function createOrder(
     );
 
     res.status(500).json({
-
       message:
         "Erreur serveur"
-
     });
 
   }
@@ -219,10 +263,8 @@ async function updateOrderStatus(
     );
 
     res.status(500).json({
-
       message:
         "Erreur serveur"
-
     });
 
   }

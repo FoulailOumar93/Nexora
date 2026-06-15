@@ -26,15 +26,18 @@ const Order =
       },
 
       status: {
-        type:
-          DataTypes.ENUM(
-            "pending",
-            "paid",
-            "cancelled"
-          ),
-        defaultValue:
-          "pending"
-      },
+  type:
+    DataTypes.ENUM(
+      "pending",
+      "paid",
+      "preparing",
+      "shipped",
+      "delivered",
+      "cancelled"
+    ),
+  defaultValue:
+    "pending"
+},
 
       user_id: {
         type:

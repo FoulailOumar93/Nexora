@@ -1,101 +1,112 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-function Confirmation() {
+function Confirmation({
+  setCart
+}) {
 
-const lastOrder =
-JSON.parse(
-localStorage.getItem(
-"lastOrder"
-)
-);
+useEffect(() => {
 
-return (
+  localStorage.removeItem(
+    "nexoraCart"
+  );
 
+  setCart([]);
 
-<>
+}, [setCart]);
 
-  <Navbar
-    cartCount={0}
-    setIsCartOpen={() => {}}
-  />
+  const lastOrder =
+    JSON.parse(
+      localStorage.getItem(
+        "lastOrder"
+      )
+    );
 
-  <main className="confirmation-page">
+  return (
 
-    <div className="confirmation-box">
+    <>
 
-      <h1>
+      <Navbar
+        cartCount={0}
+        setIsCartOpen={() => {}}
+      />
 
-        ✅ Commande confirmée
+      <main className="confirmation-page">
 
-      </h1>
+        <div className="confirmation-box">
 
-      <p>
+          <h1>
 
-        Merci pour votre commande
-        chez Nexora.
+            ✅ Commande confirmée
 
-      </p>
+          </h1>
 
-      <p>
+          <p>
 
-        Numéro de commande :
+            Merci pour votre commande
+            chez Nexora.
 
-      </p>
+          </p>
 
-      <strong>
+          <p>
 
-        {lastOrder?.id}
+            Numéro de commande :
 
-      </strong>
+          </p>
 
-      <p>
+          <strong>
 
-        Date :
-        {" "}
-        {lastOrder?.date}
+            {lastOrder?.id}
 
-      </p>
+          </strong>
 
-      <p>
+          <p>
 
-        Total :
-        {" "}
-        {lastOrder?.total?.toFixed(2)}€
+            Date :
+            {" "}
+            {lastOrder?.date}
 
-      </p>
+          </p>
 
-      <p>
+          <p>
 
-        Un email de confirmation
-        vous sera envoyé prochainement.
+            Total :
+            {" "}
+            {lastOrder?.total?.toFixed(2)}€
 
-      </p>
+          </p>
 
-      <Link to="/">
+          <p>
 
-        <button
-          className="pay-btn"
-        >
+            Un email de confirmation
+            vous sera envoyé prochainement.
 
-          Retour à l'accueil
+          </p>
 
-        </button>
+          <Link to="/">
 
-      </Link>
+            <button
+              className="pay-btn"
+            >
 
-    </div>
+              Retour à l'accueil
 
-  </main>
+            </button>
 
-  <Footer />
+          </Link>
 
-</>
+        </div>
 
+      </main>
 
-);
+      <Footer />
+
+    </>
+
+  );
 
 }
 

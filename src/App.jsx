@@ -294,9 +294,13 @@ const [favorites, setFavorites] =
         {/* CONFIRMATION */}
 
         <Route
-          path="/confirmation"
-          element={<Confirmation />}
-        />
+        path="/confirmation"
+        element={
+        <Confirmation
+        setCart={setCart}
+      />
+  }
+/>
 
         {/* LOGIN */}
 
@@ -319,12 +323,12 @@ const [favorites, setFavorites] =
           element={<Support />}
         />
        <Route
-  path="/member"
-  element={
-    <MemberPage
-      cartCount={cartCount}
-      setIsCartOpen={setIsCartOpen}
-    />
+          path="/member"
+          element={
+      <MemberPage
+       cartCount={cartCount}
+        setIsCartOpen={setIsCartOpen}
+      />
   }
 />
         <Route

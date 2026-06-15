@@ -145,13 +145,12 @@ function Checkout({
       "nexoraToken"
     );
 
+const response =
   await axios.post(
-  "http://localhost:3000/orders",
-  {
-    total: finalTotal,
-    items: cart
-  },
-  
+    "http://localhost:3000/stripe/create-checkout-session",
+    {
+      items: cart
+    },
     {
       headers: {
         Authorization:
@@ -160,36 +159,22 @@ function Checkout({
     }
   );
 
-  console.log(
-    "COMMANDE CRÉÉE"
-  );
-
-  alert(
-    "✅ Paiement validé !"
-  );
-
-  localStorage.removeItem(
-    "nexoraCart"
-  );
-
-  window.location.href =
-    "/confirmation";
+window.location.href =
+  response.data.url;
 
 } catch (error) {
 
-  console.error(error);
-
-  alert(
-    "Erreur lors de la création de la commande"
+  console.error(
+    error.response?.data || error
   );
 
-localStorage.removeItem(
-  "nexoraCart"
-);
+  alert(
+    JSON.stringify(
+      error.response?.data || error.message
+    )
+  );
 
-window.location.href =
-  "/confirmation";
-    }
+}
     }
   return (
 
@@ -385,212 +370,189 @@ window.location.href =
 
           </div>
 
-          <div className="checkout-section">
+<div className="summary-box">
 
-            <h2>
-              Paiement
-            </h2>
+  <h2>
+    Résumé de commande
+  </h2>
 
-            <input
-              type="text"
-              placeholder="Nom sur la carte"
-            />
+  {cart.length === 0 ? (
 
-            <input
-              type="text"
-              placeholder="Numéro de carte"
-            />
+    <p>
+      Votre panier est vide
+    </p>
 
-            <div className="checkout-grid">
+  ) : (
 
-              <input
-                type="text"
-                placeholder="MM/AA"
-              />
+    cart.map((item, index) => {
 
-              <input
-                type="text"
-                placeholder="CVV"
-              />
+      const itemTotal =
+        parseFloat(
+          String(item.price)
+            .replace(",", ".")
+            .replace("€", "")
+        ) *
+        (item.quantity || 1);
 
-            </div>
+      return (
 
-            <div className="payment-methods">
+        <div
+          className="summary-item checkout-product-item"
+          key={index}
+        >
 
-              <h3>
-                Moyens de paiement acceptés
-              </h3>
+          <img
+            src={item.image}
+            alt={item.title}
+            className="checkout-product-image"
+          />
 
-              <p>
-                Visa • Mastercard • PayPal
-              </p>
+          <div className="checkout-product-info">
 
-            </div>
+            <strong>
+              {item.title}
+            </strong>
+
+            {item.selectedColor && (
+              <span>
+                Couleur : {item.selectedColor}
+              </span>
+            )}
+
+            {item.selectedSize && (
+              <span>
+                Taille : {item.selectedSize}
+              </span>
+            )}
+
+            <span>
+              Quantité : {item.quantity || 1}
+            </span>
 
           </div>
 
-        </div>
-
-        <div className="checkout-right">
-
-          <div className="summary-box">
-
-            <h2>
-              Résumé de commande
-            </h2>
-
-            {cart.length === 0 ? (
-
-              <p>
-                Votre panier est vide
-              </p>
-
-            ) : (
-
-              cart.map((item, index) => {
-
-                const itemTotal =
-                  parseFloat(
-                    String(item.price)
-                      .replace(",", ".")
-                      .replace("€", "")
-                  ) *
-                  (item.quantity || 1);
-
-                return (
-
-                  <div
-                    className="summary-item checkout-product-item"
-                    key={index}
-                  >
-
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="checkout-product-image"
-                    />
-
-                    <div className="checkout-product-info">
-
-                      <strong>
-                        {item.title}
-                      </strong>
-
-                      {item.selectedColor && (
-                        <span>
-                          Couleur : {item.selectedColor}
-                        </span>
-                      )}
-
-                      {item.selectedSize && (
-                        <span>
-                          Taille : {item.selectedSize}
-                        </span>
-                      )}
-
-                      <span>
-                        Quantité : {item.quantity || 1}
-                      </span>
-
-                    </div>
-
-                    <span className="checkout-product-price">
-                      {itemTotal.toFixed(2)}€
-                    </span>
-
-                  </div>
-
-                );
-
-              })
-
-            )}
-
-            <div className="promo-box">
-
-              <input
-                type="text"
-                placeholder="Code promo"
-                value={promoCode}
-                onChange={(e) =>
-                  setPromoCode(
-                    e.target.value
-                  )
-                }
-              />
-
-              <button
-                type="button"
-                onClick={applyPromoCode}
-              >
-                Appliquer
-              </button>
-
-            </div>
-
-            <div className="summary-total">
-
-              {discount > 0 && (
-
-                <div className="summary-item">
-
-                  <span>
-                    Réduction
-                  </span>
-
-                  <span>
-                    -{discount.toFixed(2)}€
-                  </span>
-
-                </div>
-
-              )}
-
-              <span>
-                Total
-              </span>
-
-              <span>
-                {finalTotal.toFixed(2)}€
-              </span>
-
-            </div>
-
-            {finalTotal >= 100 && (
-
-              <div className="installments">
-
-                <h3>
-                  Paiement en 3x sans frais
-                </h3>
-
-                <p>
-                  3 mensualités de{" "}
-                  {(finalTotal / 3).toFixed(2)}€
-                </p>
-
-              </div>
-
-            )}
-
-            <button
-              className="pay-btn"
-              onClick={handlePayment}
-            >
-              Payer maintenant
-            </button>
-
-          </div>
+          <span className="checkout-product-price">
+            {itemTotal.toFixed(2)}€
+          </span>
 
         </div>
 
-      </main>
+      );
 
-      <Footer />
+    })
 
-    </>
+  )}
 
-  );
+  <div className="promo-box">
+
+    <input
+      type="text"
+      placeholder="Code promo"
+      value={promoCode}
+      onChange={(e) =>
+        setPromoCode(
+          e.target.value
+        )
+      }
+    />
+
+    <button
+      type="button"
+      onClick={applyPromoCode}
+    >
+      Appliquer
+    </button>
+
+  </div>
+
+  <div className="summary-total">
+
+    {discount > 0 && (
+
+      <div className="summary-item">
+
+        <span>
+          Réduction
+        </span>
+
+        <span>
+          -{discount.toFixed(2)}€
+        </span>
+
+      </div>
+
+    )}
+
+    <span>
+      Total
+    </span>
+
+    <span>
+      {finalTotal.toFixed(2)}€
+    </span>
+
+  </div>
+
+  {finalTotal >= 100 && (
+
+    <div className="installments">
+
+      <h3>
+        Paiement en 3x sans frais
+      </h3>
+
+      <p>
+        3 mensualités de{" "}
+        {(finalTotal / 3).toFixed(2)}€
+      </p>
+
+    </div>
+
+  )}
+
+  <button
+    className="pay-btn"
+    onClick={handlePayment}
+  >
+    Procéder au paiement sécurisé
+  </button>
+   
+        <div className="checkout-section">
+
+  <h2>
+    Paiement sécurisé
+  </h2>
+
+  <p>
+    Après validation de votre commande,
+    vous serez redirigé vers Stripe afin
+    de finaliser votre paiement de manière
+    totalement sécurisée.
+  </p>
+
+  <p>
+    Stripe accepte Visa, Mastercard et
+    les autres moyens de paiement
+    compatibles avec votre pays.
+  </p>
+
+  <p>
+    Aucune information bancaire n'est
+    stockée sur Nexora.
+  </p>
+
+</div>
+</div>
+
+</div>
+
+</main>
+
+<Footer />
+
+</>
+
+);
 
 }
 

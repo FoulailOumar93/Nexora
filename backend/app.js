@@ -37,7 +37,11 @@ const orderRouter =
   require(
     "./api/routers/order.router"
   );
-
+const stripeRouter =
+  require(
+    "./api/routers/stripe.router.js" 
+  );
+  
 const app = express();
 
 app.use(cors());
@@ -54,6 +58,11 @@ app.get("/", (req, res) => {
   });
 
 });
+
+app.use(
+  "/stripe",
+  stripeRouter
+);
 
 app.use(
   "/auth",
