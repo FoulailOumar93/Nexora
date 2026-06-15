@@ -230,13 +230,12 @@ const toggleFavorite = () => {
 
         {/* BUTTON */}
 
-        <button
+       <Link
+          to={`/product/${id}`}
           className="add-cart-btn"
-          onClick={() => addToCart(product)}
-        >
-          Ajouter au panier
-        </button>
-
+       >
+          Voir les détails
+      </Link>
       </div>
 
     </div>

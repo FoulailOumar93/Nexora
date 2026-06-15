@@ -30,7 +30,7 @@ const [loading, setLoading] =
   const [selectedSize, setSelectedSize] =
   useState("");
 
- const [selectedBlouseSize, setSelectedBlouseSize] =
+  const [selectedBlouseSize, setSelectedBlouseSize] =
   useState("");
 
  const [selectedColor, setSelectedColor] =

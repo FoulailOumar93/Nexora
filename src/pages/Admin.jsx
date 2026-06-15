@@ -14,6 +14,8 @@ function Admin() {
   const [image, setImage] = useState("");
   const [stock, setStock] = useState("");
 
+  const [editingId, setEditingId] = useState(null);
+
   const token = localStorage.getItem("nexoraToken");
 
   const totalRevenue = orders.reduce(
@@ -68,38 +70,71 @@ function Admin() {
     loadOrders();
   }, []);
 
-  const addProduct = async (e) => {
+  const resetProductForm = () => {
+    setTitle("");
+    setCategory("");
+    setDescription("");
+    setPrice("");
+    setImage("");
+    setStock("");
+    setEditingId(null);
+  };
+
+  const saveProduct = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "http://localhost:3000/products",
-        {
-          title,
-          category,
-          description,
-          price,
-          image,
-          stock
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
+      if (editingId) {
+        await axios.put(
+          `http://localhost:3000/products/${editingId}`,
+          {
+            title,
+            category,
+            description,
+            price,
+            image,
+            stock
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        }
-      );
+        );
+      } else {
+        await axios.post(
+          "http://localhost:3000/products",
+          {
+            title,
+            category,
+            description,
+            price,
+            image,
+            stock
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+      }
 
-      setTitle("");
-      setCategory("");
-      setDescription("");
-      setPrice("");
-      setImage("");
-      setStock("");
-
+      resetProductForm();
       loadProducts();
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const editProduct = (product) => {
+    setEditingId(product.id);
+    setTitle(product.title);
+    setCategory(product.category);
+    setDescription(product.description || "");
+    setPrice(product.price);
+    setImage(product.image);
+    setStock(product.stock);
   };
 
   const deleteProduct = async (id) => {
@@ -124,20 +159,18 @@ function Admin() {
     <main className="admin-layout">
       <aside className="admin-sidebar">
         <div className="admin-logo">
+          <img
+            src="/logo.png"
+            alt="Nexora"
+            className="admin-logo-image"
+          />
 
-  <img
-    src="/logo.png"
-    alt="Nexora"
-    className="admin-logo-image"
-  />
+          <span>Nexora</span>
 
-  <span>Nexora</span>
-
-  <small>
-   Fashion • Streetwear • Lifestyle
-  </small>
-
-</div>
+          <small>
+            Fashion • Streetwear • Lifestyle
+          </small>
+        </div>
 
         <nav className="admin-nav">
           <a href="#overview">Vue d'ensemble</a>
@@ -188,11 +221,15 @@ function Admin() {
         </section>
 
         <section className="admin-card" id="add-product">
-          <h2>Ajouter un produit</h2>
+          <h2>
+            {editingId
+              ? "Modifier un produit"
+              : "Ajouter un produit"}
+          </h2>
 
           <form
             className="admin-form"
-            onSubmit={addProduct}
+            onSubmit={saveProduct}
           >
             <input
               type="text"
@@ -237,8 +274,19 @@ function Admin() {
             />
 
             <button type="submit">
-              Ajouter le produit
+              {editingId
+                ? "Mettre à jour le produit"
+                : "Ajouter le produit"}
             </button>
+
+            {editingId && (
+              <button
+                type="button"
+                onClick={resetProductForm}
+              >
+                Annuler la modification
+              </button>
+            )}
           </form>
         </section>
 
@@ -312,6 +360,13 @@ function Admin() {
 
                     <td>
                       <button
+                        type="button"
+                        onClick={() => editProduct(product)}
+                      >
+                        Modifier
+                      </button>
+
+                      <button
                         className="admin-delete-btn"
                         onClick={() => deleteProduct(product.id)}
                       >
@@ -333,7 +388,7 @@ function Admin() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>User ID</th>
+                  <th>Client</th>
                   <th>Total</th>
                   <th>Statut</th>
                   <th>Date</th>
@@ -341,21 +396,43 @@ function Admin() {
               </thead>
 
               <tbody>
-                {orders.map((order) => (
-                  <tr key={order.id}>
-                    <td>{order.id}</td>
-                    <td>{order.user_id}</td>
-                    <td>{Number(order.total).toFixed(2)}€</td>
-                    <td>
-                      <span className="admin-status">
-                        {order.status}
-                      </span>
-                    </td>
-                    <td>
-                      {new Date(order.created_at).toLocaleDateString("fr-FR")}
-                    </td>
-                  </tr>
-                ))}
+                {orders.map((order) => {
+                  const orderUser =
+                    users.find(
+                      (user) =>
+                        user.id === order.user_id
+                    );
+
+                  return (
+                    <tr key={order.id}>
+                      <td>{order.id}</td>
+
+                      <td>
+                        {orderUser
+                          ? `${orderUser.firstName} ${orderUser.lastName}`
+                          : "Utilisateur inconnu"}
+                      </td>
+
+                      <td>
+                        {Number(order.total).toFixed(2)}€
+                      </td>
+
+                      <td>
+                        <span className="admin-status">
+                          {order.status}
+                        </span>
+                      </td>
+
+                      <td>
+                        {new Date(
+                          order.created_at
+                        ).toLocaleDateString(
+                          "fr-FR"
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

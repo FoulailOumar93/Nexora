@@ -146,10 +146,12 @@ function Checkout({
     );
 
   await axios.post(
-    "http://localhost:3000/orders",
-    {
-      total: finalTotal
-    },
+  "http://localhost:3000/orders",
+  {
+    total: finalTotal,
+    items: cart
+  },
+  
     {
       headers: {
         Authorization:

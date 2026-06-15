@@ -21,8 +21,11 @@ function MemberPage({
   setIsCartOpen
 }) {
 
-  const { user, logout } =
-    useAuth();
+  const {
+  user,
+  logout,
+  loading
+} = useAuth();
 
   const navigate =
     useNavigate();
@@ -32,7 +35,9 @@ function MemberPage({
 
   const [loadingOrders, setLoadingOrders] =
     useState(true);
-
+    
+  const [searchQuery, setSearchQuery] =
+  useState("");
   useEffect(() => {
 
     const fetchOrders =
@@ -97,15 +102,25 @@ function MemberPage({
 
   };
 
-  if (!user) {
+  useEffect(() => {
+
+  if (!loading && !user) {
 
     navigate("/login");
 
-    return null;
-
   }
-const [searchQuery, setSearchQuery] =
-  useState("");
+
+}, [user, loading, navigate]);
+
+if (loading) {
+
+  return (
+    <p>Chargement...</p>
+  );
+
+}
+
+
   return (
 
     <>

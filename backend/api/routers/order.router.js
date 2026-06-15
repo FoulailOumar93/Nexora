@@ -7,7 +7,8 @@ const router =
 const {
   getOrders,
   getAllOrders,
-  createOrder
+  createOrder,
+  updateOrderStatus
 } = require(
   "../controllers/order.controller"
 );
@@ -33,6 +34,12 @@ router.post(
   "/",
   isAuth,
   createOrder
+);
+
+router.patch(
+  "/:id/status",
+  isAuth,
+  updateOrderStatus
 );
 
 module.exports =
