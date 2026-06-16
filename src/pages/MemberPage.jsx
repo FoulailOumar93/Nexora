@@ -170,9 +170,7 @@ if (!user) {
               <strong>Rôle :</strong>{" "}
               {user?.role}
             </p>
-
-          </div>
-          <button
+            <button
             className="edit-profile-btn"
             onClick={() =>
               navigate("/profile")
@@ -180,6 +178,8 @@ if (!user) {
           >
             ⚙️ Modifier mon profil
           </button>
+          </div>
+          
           <div className="member-card">
 
             <h2>
