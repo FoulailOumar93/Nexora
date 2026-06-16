@@ -7,7 +7,8 @@ const router =
 const {
   register,
   login,
-  me
+  me,
+  updateMe
 } = require(
   "../controllers/auth.controller"
 );
@@ -31,6 +32,12 @@ router.get(
   "/me",
   isAuth,
   me
+);
+
+router.patch(
+  "/me",
+  isAuth,
+  updateMe
 );
 
 module.exports =

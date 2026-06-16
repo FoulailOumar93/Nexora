@@ -49,6 +49,42 @@ const User =
           ),
         defaultValue:
           "user"
+      },
+
+      phone: {
+        type:
+          DataTypes.STRING(30),
+        allowNull: true
+      },
+
+      address: {
+        type:
+          DataTypes.STRING,
+        allowNull: true
+      },
+
+      postal_code: {
+        type:
+          DataTypes.STRING(20),
+        allowNull: true
+      },
+
+      city: {
+        type:
+          DataTypes.STRING(100),
+        allowNull: true
+      },
+
+      country: {
+        type:
+          DataTypes.STRING(100),
+        allowNull: true
+      },
+
+      avatar: {
+        type:
+          DataTypes.STRING,
+        allowNull: true
       }
     },
     {

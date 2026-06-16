@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Profile from "./pages/Profile";
 import {
   Routes,
   Route
@@ -329,6 +329,16 @@ const [favorites, setFavorites] =
        cartCount={cartCount}
         setIsCartOpen={setIsCartOpen}
       />
+  }
+/>
+
+<Route
+  path="/profile"
+  element={
+    <Profile
+      cartCount={cartCount}
+      setIsCartOpen={setIsCartOpen}
+    />
   }
 />
         <Route
