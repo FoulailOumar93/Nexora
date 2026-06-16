@@ -3076,8 +3076,23 @@ a{
   background: #d1fae5;
   color: #065f46;
 }
-
 .status-cancelled {
   background: #fee2e2;
   color: #991b1b;
+}
+.edit-profile-btn{
+  margin-top:1rem;
+  padding:12px 20px;
+  background:transparent;
+  color:#d4af37;
+  border:1px solid #d4af37;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.edit-profile-btn:hover{
+  background:#d4af37;
+  color:#000;
 }
