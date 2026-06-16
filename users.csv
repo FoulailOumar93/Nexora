@@ -1,0 +1,4 @@
+id,firstName,lastName,email,password,role,created_at
+1,Oumar,Foulail,oumar@test.com,"$argon2id$v=19$m=65536,t=3,p=4$EC7D7kNccFOvkMEZLCYZ1w$OehwdTOyFcFHLsVJrv7e52yUiAp4PekImK8Ra+l3C50",user,2026-06-11 22:32:14.092+02
+2,Oumar,Foulail,foulailoumar55@gmail.com,"$argon2id$v=19$m=65536,t=3,p=4$fCrhRRMYEZSeNbRvqgLsiQ$OKYoZMx1AcQtXbtk7p1ygNeBbMBBN+rfmr4XG8u+s6w",admin,2026-06-11 23:19:29.883+02
+3,Rajinikanth,Super Star,SuperStarRajinikanth@gmail.com,"$argon2id$v=19$m=65536,t=3,p=4$gsqQ0Bi7Oi/x4O5tkThL6A$wGRbqiilCYa6wQmaCwUWGOCOCt6EQ+fs886Db/CCYeM",user,2026-06-12 17:19:44.122+02
