@@ -172,13 +172,14 @@ if (!user) {
             </p>
 
           </div>
-<button
-  onClick={() =>
-    navigate("/profile")
-  }
->
-  ⚙️ Modifier mon profil
-</button>
+          <button
+            className="edit-profile-btn"
+            onClick={() =>
+              navigate("/profile")
+            }
+          >
+            ⚙️ Modifier mon profil
+          </button>
           <div className="member-card">
 
             <h2>
