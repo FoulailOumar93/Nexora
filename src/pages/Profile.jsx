@@ -171,7 +171,17 @@ function Profile({
     );
 
   }
+await axios.patch(
+  "https://nexora-1e3z.onrender.com/auth/me",
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
 
+navigate("/member");
   return (
 
     <>
