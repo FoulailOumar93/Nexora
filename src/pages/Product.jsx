@@ -43,7 +43,7 @@ const [loading, setLoading] =
 
   axios
     .get(
-      `http://localhost:3000/products/${id}`
+      `https://nexora-1e3z.onrender.com/products/${id}`
     )
     .then((response) => {
 
@@ -52,7 +52,7 @@ const [loading, setLoading] =
       );
 
       return axios.get(
-        "http://localhost:3000/products"
+        "https://nexora-1e3z.onrender.com/products"
       );
 
     })
