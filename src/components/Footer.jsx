@@ -142,27 +142,33 @@ function Footer() {
 
         {/* COMPTE */}
 
-        <div>
+       <div>
 
-          <h3>
-            Compte
-          </h3>
+  <h3>
+    Compte
+  </h3>
 
-          <Link to="/login">
-            Connexion
-          </Link>
+  <Link to="/login">
+    Connexion
+  </Link>
 
-          <Link to="/register">
-            Inscription
-          </Link>
+  <Link to="/register">
+    Inscription
+  </Link>
 
-          <Link to="/checkout">
-            Panier
-          </Link>
-          <Link to="/favoris">
-            Mes favoris
-          </Link>
-        </div>
+  <Link to="/profile">
+    Mon Profil
+  </Link>
+
+  <Link to="/checkout">
+    Panier
+  </Link>
+
+  <Link to="/favoris">
+    Mes Favoris
+  </Link>
+
+</div>
 
         {/* PAIEMENT */}
 

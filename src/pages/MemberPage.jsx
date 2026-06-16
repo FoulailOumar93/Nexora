@@ -170,6 +170,22 @@ if (!user) {
               <strong>Rôle :</strong>{" "}
               {user?.role}
             </p>
+
+              <p>
+  <strong>Téléphone :</strong>{" "}
+  {user?.phone || "Non renseigné"}
+</p>
+
+<p>
+  <strong>Ville :</strong>{" "}
+  {user?.city || "Non renseignée"}
+</p>
+
+<p>
+  <strong>Pays :</strong>{" "}
+  {user?.country || "Non renseigné"}
+</p>
+
             <button
             className="edit-profile-btn"
             onClick={() =>
