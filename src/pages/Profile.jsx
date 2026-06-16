@@ -2,7 +2,9 @@ import {
   useState,
   useEffect
 } from "react";
+
 import "../styles/global.css";
+
 import axios from "axios";
 
 import {
@@ -163,7 +165,9 @@ function Profile({
   if (loading) {
 
     return (
-      <p>Chargement...</p>
+      <p>
+        Chargement...
+      </p>
     );
 
   }
@@ -189,7 +193,7 @@ function Profile({
 
           <form
             onSubmit={handleSubmit}
-            className="member-card"
+            className="member-card profile-card"
           >
 
             <input
@@ -256,7 +260,9 @@ function Profile({
               onChange={handleChange}
             />
 
-            <button type="submit">
+            <button
+              type="submit"
+            >
 
               Enregistrer
 
