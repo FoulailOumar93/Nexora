@@ -2,7 +2,7 @@ import {
   useState,
   useEffect
 } from "react";
-
+import "../styles/global.css";
 import axios from "axios";
 
 import {
