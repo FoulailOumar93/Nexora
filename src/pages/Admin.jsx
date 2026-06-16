@@ -46,14 +46,14 @@ function Admin() {
 
   const loadProducts = () => {
     axios
-      .get("http://localhost:3000/products")
+      .get("https://nexora-1e3z.onrender.com/products")
       .then((response) => setProducts(response.data))
       .catch((error) => console.error(error));
   };
 
   const loadOrders = () => {
     axios
-      .get("http://localhost:3000/orders/admin", {
+      .get("https://nexora-1e3z.onrender.com/orders/admin", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -64,7 +64,7 @@ function Admin() {
 
   const loadUsers = () => {
     axios
-      .get("http://localhost:3000/admin/users", {
+      .get("https://nexora-1e3z.onrender.com/admin/users", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -105,7 +105,7 @@ function Admin() {
     try {
       if (editingId) {
         await axios.put(
-          `http://localhost:3000/products/${editingId}`,
+          `https://nexora-1e3z.onrender.com/products/${editingId}`,
           {
             title,
             category,
@@ -122,7 +122,7 @@ function Admin() {
         );
       } else {
         await axios.post(
-          "http://localhost:3000/products",
+          "https://nexora-1e3z.onrender.com/products",
           {
             title,
             category,
@@ -148,7 +148,7 @@ function Admin() {
   try {
 
     await axios.patch(
-      `http://localhost:3000/orders/${id}/status`,
+      `https://nexora-1e3z.onrender.com/orders/${id}/status`,
       { status },
       {
         headers: {
@@ -190,7 +190,7 @@ const deleteProduct = async (id) => {
   try {
 
     await axios.delete(
-      `http://localhost:3000/products/${id}`,
+      `https://nexora-1e3z.onrender.com/products/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -219,7 +219,7 @@ const updateOrderStatus = async (id, status) => {
   try {
 
     await axios.patch(
-      `http://localhost:3000/orders/${id}/status`,
+      `https://nexora-1e3z.onrender.com/orders/${id}/status`,
       { status },
       {
         headers: {

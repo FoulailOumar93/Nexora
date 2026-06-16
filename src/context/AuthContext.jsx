@@ -11,7 +11,7 @@ const AuthContext =
   createContext();
 
 const API_URL =
-  "http://localhost:3000";
+  "https://nexora-1e3z.onrender.com";
 
 export function AuthProvider({
   children

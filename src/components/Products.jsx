@@ -20,7 +20,7 @@ function Products({
 
     axios
       .get(
-        "http://localhost:3000/products"
+        "https://nexora-1e3z.onrender.com/products"
       )
       .then((response) => {
 

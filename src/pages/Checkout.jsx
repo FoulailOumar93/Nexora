@@ -147,7 +147,7 @@ function Checkout({
 
 const response =
   await axios.post(
-    "http://localhost:3000/stripe/create-checkout-session",
+    "https://nexora-1e3z.onrender.com/stripe/create-checkout-session",
     {
       items: cart
     },

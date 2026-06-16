@@ -60,7 +60,7 @@ function MemberPage({
 
           const response =
             await axios.get(
-              "http://localhost:3000/orders",
+              "https://nexora-1e3z.onrender.com/orders",
               {
                 headers: {
                   Authorization:
