@@ -187,6 +187,15 @@ function Admin() {
   };
 
 const deleteProduct = async (id) => {
+
+  const confirmed = window.confirm(
+    "Êtes-vous sûr de vouloir supprimer ce produit ?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
   try {
 
     await axios.delete(
@@ -213,6 +222,7 @@ const deleteProduct = async (id) => {
     );
 
   }
+
 };
 
 const updateOrderStatus = async (id, status) => {
