@@ -1,5 +1,5 @@
 const transporter =
-  require("../config/mailer");
+  require("../../config/mailer");
 
 const User =
   require("../models/user.model");
