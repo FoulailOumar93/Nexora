@@ -8,7 +8,8 @@ const {
   register,
   login,
   me,
-  updateMe
+  updateMe,
+  changePassword
 } = require(
   "../controllers/auth.controller"
 );
@@ -32,6 +33,12 @@ router.get(
   "/me",
   isAuth,
   me
+);
+
+router.patch(
+  "/password",
+  isAuth,
+  changePassword
 );
 
 router.patch(
