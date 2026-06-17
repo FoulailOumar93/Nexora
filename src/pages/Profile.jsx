@@ -24,10 +24,10 @@ function Profile({
 }) {
 
   const {
-  user,
-  loading,
-  fetchUser
-} = useAuth();
+    user,
+    loading,
+    fetchUser
+  } = useAuth();
 
   const navigate =
     useNavigate();
@@ -55,6 +55,17 @@ function Profile({
       country: "",
 
       avatar: ""
+
+    });
+
+  const [passwordData, setPasswordData] =
+    useState({
+
+      currentPassword: "",
+
+      newPassword: "",
+
+      confirmPassword: ""
 
     });
 
@@ -121,72 +132,143 @@ function Profile({
   };
 
   const handleSubmit =
-  async (e) => {
+    async (e) => {
 
-    e.preventDefault();
+      e.preventDefault();
 
-    const unchanged =
+      const unchanged =
 
-      formData.firstName === (user.firstName || "") &&
-      formData.lastName === (user.lastName || "") &&
-      formData.email === (user.email || "") &&
-      formData.phone === (user.phone || "") &&
-      formData.address === (user.address || "") &&
-      formData.postal_code === (user.postal_code || "") &&
-      formData.city === (user.city || "") &&
-      formData.country === (user.country || "");
+        formData.firstName === (user.firstName || "") &&
+        formData.lastName === (user.lastName || "") &&
+        formData.email === (user.email || "") &&
+        formData.phone === (user.phone || "") &&
+        formData.address === (user.address || "") &&
+        formData.postal_code === (user.postal_code || "") &&
+        formData.city === (user.city || "") &&
+        formData.country === (user.country || "");
 
-    if (unchanged) {
+      if (unchanged) {
 
-      toast(
-        "Aucune modification détectée"
-      );
-
-      return;
-
-    }
-
-    try {
-
-      const token =
-        localStorage.getItem(
-          "nexoraToken"
+        toast(
+          "Aucune modification détectée"
         );
 
-      await axios.patch(
+        return;
 
-        "https://nexora-1e3z.onrender.com/auth/me",
+      }
 
-        formData,
+      try {
 
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`
+        const token =
+          localStorage.getItem(
+            "nexoraToken"
+          );
+
+        await axios.patch(
+
+          "https://nexora-1e3z.onrender.com/auth/me",
+
+          formData,
+
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
           }
-        }
 
-      );
+        );
 
-      await fetchUser();
+        await fetchUser();
 
-      toast.success(
-      "Profil mis à jour avec succès"
-   );
+        toast.success(
+          "Profil mis à jour avec succès"
+        );
 
-      navigate("/member");
+        navigate("/member");
 
-    } catch (error) {
+      } catch (error) {
 
-      console.error(error);
+        console.error(error);
 
-      toast.error(
-        "Erreur lors de la mise à jour"
-      );
+        toast.error(
+          "Erreur lors de la mise à jour"
+        );
 
-    }
+      }
 
-  };
+    };
+
+  const handlePasswordChange =
+    async (e) => {
+
+      e.preventDefault();
+
+      if (
+        !passwordData.currentPassword ||
+        !passwordData.newPassword ||
+        !passwordData.confirmPassword
+      ) {
+
+        toast.error(
+          "Veuillez remplir tous les champs"
+        );
+
+        return;
+
+      }
+
+      try {
+
+        const token =
+          localStorage.getItem(
+            "nexoraToken"
+          );
+
+        await axios.patch(
+
+          "https://nexora-1e3z.onrender.com/auth/password",
+
+          passwordData,
+
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+
+        );
+
+        toast.success(
+          "Mot de passe modifié avec succès"
+        );
+
+        setPasswordData({
+
+          currentPassword: "",
+
+          newPassword: "",
+
+          confirmPassword: ""
+
+        });
+
+      } catch (error) {
+
+        console.error(error);
+
+        toast.error(
+
+          error.response?.data?.message ||
+
+          "Erreur lors de la modification"
+
+        );
+
+      }
+
+    };
 
   if (loading) {
 
@@ -290,6 +372,62 @@ function Profile({
               type="submit"
             >
               Enregistrer
+            </button>
+
+          </form>
+
+          <form
+            onSubmit={handlePasswordChange}
+            className="member-card profile-card"
+          >
+
+            <h2>
+              Modifier le mot de passe
+            </h2>
+
+            <input
+              type="password"
+              placeholder="Mot de passe actuel"
+              value={passwordData.currentPassword}
+              onChange={(e) =>
+                setPasswordData({
+                  ...passwordData,
+                  currentPassword:
+                    e.target.value
+                })
+              }
+            />
+
+            <input
+              type="password"
+              placeholder="Nouveau mot de passe"
+              value={passwordData.newPassword}
+              onChange={(e) =>
+                setPasswordData({
+                  ...passwordData,
+                  newPassword:
+                    e.target.value
+                })
+              }
+            />
+
+            <input
+              type="password"
+              placeholder="Confirmer le mot de passe"
+              value={passwordData.confirmPassword}
+              onChange={(e) =>
+                setPasswordData({
+                  ...passwordData,
+                  confirmPassword:
+                    e.target.value
+                })
+              }
+            />
+
+            <button
+              type="submit"
+            >
+              Modifier le mot de passe
             </button>
 
           </form>
