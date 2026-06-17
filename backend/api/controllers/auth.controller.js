@@ -434,8 +434,9 @@ async function forgotPassword(
     }
 
     const token =
-      crypto.randomBytes(32)
-        .toString("hex");
+  require("crypto")
+    .randomBytes(32)
+    .toString("hex");
 
     const expires =
       new Date(
