@@ -1,3 +1,6 @@
+const transporter =
+  require("../config/mailer");
+
 const User =
   require("../models/user.model");
 
@@ -428,7 +431,7 @@ async function forgotPassword(
 
       return res.json({
         message:
-          "Si cet email existe, un lien a été envoyé."
+          "Un lien a été envoyé pour réinitialiser le mot de passe"
       });
 
     }
@@ -456,7 +459,7 @@ async function forgotPassword(
 
     const resetLink =
       `${process.env.FRONTEND_URL}/reset-password/${token}`;
-
+    console.log("Envoi du mail à :", user.email);
     await transporter.sendMail({
 
       from:
