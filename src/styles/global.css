@@ -1421,11 +1421,9 @@ a{
   background-size:cover;
   background-position:right center;
   background-repeat:no-repeat;
-
   display:flex;
   align-items:center;
-  justify-content:flex-start;
-  padding-left:15%;
+  justify-content:center;
 }
 
 .auth-box{
@@ -1517,6 +1515,7 @@ a{
   margin-top:25px;
   color:#aaa;
 }
+
 .auth-switch a{
   color:var(--gold);
   text-decoration:none;
