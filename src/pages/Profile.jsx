@@ -121,46 +121,51 @@ function Profile({
   };
 
   const handleSubmit =
-    async (e) => {
+  async (e) => {
 
-      e.preventDefault();
+    e.preventDefault();
 
-      try {
+    try {
 
-        await axios.patch(
-
-  "https://nexora-1e3z.onrender.com/auth/me",
-
-  formData,
-
-  {
-    headers: {
-      Authorization:
-        `Bearer ${token}`
-    }
-  }
-
-);
-
-await fetchUser();
-
-alert(
-  "Profil mis à jour avec succès"
-);
-
-navigate("/member");
-
-      } catch (error) {
-
-        console.error(error);
-
-        alert(
-          "Erreur lors de la mise à jour"
+      const token =
+        localStorage.getItem(
+          "nexoraToken"
         );
 
-      }
+      await axios.patch(
 
-    };
+        "https://nexora-1e3z.onrender.com/auth/me",
+
+        formData,
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
+
+      );
+
+      await fetchUser();
+
+      alert(
+        "Profil mis à jour avec succès"
+      );
+
+      navigate("/member");
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Erreur lors de la mise à jour"
+      );
+
+    }
+
+  };
 
   if (loading) {
 
