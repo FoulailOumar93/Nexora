@@ -125,6 +125,27 @@ function Profile({
 
     e.preventDefault();
 
+    const unchanged =
+
+      formData.firstName === (user.firstName || "") &&
+      formData.lastName === (user.lastName || "") &&
+      formData.email === (user.email || "") &&
+      formData.phone === (user.phone || "") &&
+      formData.address === (user.address || "") &&
+      formData.postal_code === (user.postal_code || "") &&
+      formData.city === (user.city || "") &&
+      formData.country === (user.country || "");
+
+    if (unchanged) {
+
+      alert(
+        "Aucune modification détectée"
+      );
+
+      return;
+
+    }
+
     try {
 
       const token =
