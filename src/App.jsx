@@ -4,7 +4,6 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
@@ -18,6 +17,10 @@ import Confirmation from "./pages/Confirmation";
 import Favoris from "./pages/Favoris";
 import MemberPage from "./pages/MemberPage";
 import Admin from "./pages/Admin";
+import ForgotPassword
+from "./pages/ForgotPassword";
+import ResetPassword
+from "./pages/ResetPassword";
 function App() {
 
   /* =========================
@@ -347,7 +350,7 @@ const [favorites, setFavorites] =
        />
           {/* Favoris */}
 
-     <Route
+    <Route
   path="/favoris"
   element={
     <Favoris
@@ -355,14 +358,20 @@ const [favorites, setFavorites] =
       setIsCartOpen={setIsCartOpen}
       addToCart={addToCart}
     />
-    
   }
-  
 />
-          </Routes>
 
-      
+<Route
+  path="/forgot-password"
+  element={<ForgotPassword />}
+/>
 
+<Route
+  path="/reset-password/:token"
+  element={<ResetPassword />}
+/>
+
+</Routes>
       {/* =========================
           CART
       ========================= */}

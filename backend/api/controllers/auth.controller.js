@@ -408,6 +408,210 @@ async function changePassword(
 
 }
 
+
+async function forgotPassword(
+  req,
+  res
+) {
+
+  try {
+
+    const { email } =
+      req.body;
+
+    const user =
+      await User.findOne({
+        where: { email }
+      });
+
+    if (!user) {
+
+      return res.json({
+        message:
+          "Si cet email existe, un lien a été envoyé."
+      });
+
+    }
+
+    const token =
+      crypto.randomBytes(32)
+        .toString("hex");
+
+    const expires =
+      new Date(
+        Date.now() +
+        1000 * 60 * 30
+      );
+
+    await user.update({
+
+      reset_password_token:
+        token,
+
+      reset_password_expires:
+        expires
+
+    });
+
+    const resetLink =
+      `${process.env.FRONTEND_URL}/reset-password/${token}`;
+
+    await transporter.sendMail({
+
+      from:
+        process.env.EMAIL_USER,
+
+      to:
+        user.email,
+
+      subject:
+        "Réinitialisation du mot de passe Nexora",
+
+      html: `
+        <h2>Nexora</h2>
+
+        <p>
+          Cliquez sur le bouton ci-dessous
+          pour réinitialiser votre mot de passe.
+        </p>
+
+        <a
+          href="${resetLink}"
+          style="
+            background:#d4af37;
+            color:black;
+            padding:12px 20px;
+            text-decoration:none;
+            border-radius:8px;
+            display:inline-block;
+          "
+        >
+          Réinitialiser
+        </a>
+
+        <p>
+          Ce lien expire dans 30 minutes.
+        </p>
+      `
+
+    });
+
+    res.json({
+
+      message:
+        "Si cet email existe, un lien a été envoyé."
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message:
+        "Erreur serveur"
+    });
+
+  }
+
+}
+
+async function resetPassword(
+  req,
+  res
+) {
+
+  try {
+
+    const { token } =
+      req.params;
+
+    const {
+      password,
+      confirmPassword
+    } = req.body;
+
+    if (
+      password !==
+      confirmPassword
+    ) {
+
+      return res
+        .status(400)
+        .json({
+          message:
+            "Les mots de passe ne correspondent pas"
+        });
+
+    }
+
+    const user =
+      await User.findOne({
+
+        where: {
+
+          reset_password_token:
+            token
+
+        }
+
+      });
+
+    if (
+      !user ||
+      !user.reset_password_expires ||
+      new Date(
+        user.reset_password_expires
+      ) < new Date()
+    ) {
+
+      return res
+        .status(400)
+        .json({
+          message:
+            "Lien invalide ou expiré"
+        });
+
+    }
+
+    const hashedPassword =
+      await argon2.hash(
+        password
+      );
+
+    await user.update({
+
+      password:
+        hashedPassword,
+
+      reset_password_token:
+        null,
+
+      reset_password_expires:
+        null
+
+    });
+
+    res.json({
+
+      message:
+        "Mot de passe réinitialisé avec succès"
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message:
+        "Erreur serveur"
+    });
+
+  }
+
+}
+
 module.exports = {
 
   register,
@@ -418,6 +622,10 @@ module.exports = {
 
   updateMe,
 
-  changePassword
+  changePassword,
+
+  forgotPassword,
+
+  resetPassword
 
 };

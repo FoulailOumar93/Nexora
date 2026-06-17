@@ -9,7 +9,9 @@ const {
   login,
   me,
   updateMe,
-  changePassword
+  changePassword,
+  forgotPassword,
+  resetPassword
 } = require(
   "../controllers/auth.controller"
 );
@@ -27,6 +29,16 @@ router.post(
 router.post(
   "/login",
   login
+);
+
+router.post(
+  "/forgot-password",
+  forgotPassword
+);
+
+router.patch(
+  "/reset-password/:token",
+  resetPassword
 );
 
 router.get(
