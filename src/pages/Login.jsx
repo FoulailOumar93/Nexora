@@ -133,7 +133,12 @@ if (result.success) {
             </button>
 
           </div>
-
+          <Link
+            to="/forgot-password"
+            className="forgot-password-link"
+          >
+            Mot de passe oublié ?
+          </Link>
           <button type="submit">
 
             Se connecter
