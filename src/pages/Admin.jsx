@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/global.css";
 import toast from "react-hot-toast";
+
 function Admin() {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
@@ -16,6 +17,9 @@ function Admin() {
 
   const [editingId, setEditingId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   const token = localStorage.getItem("nexoraToken");
 
@@ -120,6 +124,8 @@ function Admin() {
             }
           }
         );
+
+        toast.success("Produit modifié avec succès");
       } else {
         await axios.post(
           "https://nexora-1e3z.onrender.com/products",
@@ -137,42 +143,16 @@ function Admin() {
             }
           }
         );
+
+        toast.success("Produit ajouté avec succès");
       }
 
       closeModal();
       loadProducts();
     } catch (error) {
       console.error(error);
+      toast.error("Erreur lors de l'enregistrement du produit");
     }
-    const updateOrderStatus = async (id, status) => {
-  try {
-
-    await axios.patch(
-      `https://nexora-1e3z.onrender.com/orders/${id}/status`,
-      { status },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
-
-    loadOrders();
-
-    toast.success(
-      "Statut mis à jour avec succès"
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    toast.error(
-      "Erreur lors de la mise à jour"
-    );
-
-  }
-};
   };
 
   const editProduct = (product) => {
@@ -186,74 +166,58 @@ function Admin() {
     setShowModal(true);
   };
 
-const deleteProduct = async (id) => {
+  const openDeleteModal = (product) => {
+    setProductToDelete(product);
+    setShowDeleteModal(true);
+  };
 
-  const confirmed = window.confirm(
-    "Êtes-vous sûr de vouloir supprimer ce produit ?"
-  );
+  const closeDeleteModal = () => {
+    setProductToDelete(null);
+    setShowDeleteModal(false);
+  };
 
-  if (!confirmed) {
-    return;
-  }
+  const confirmDeleteProduct = async () => {
+    if (!productToDelete) return;
 
-  try {
-
-    await axios.delete(
-      `https://nexora-1e3z.onrender.com/products/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+    try {
+      await axios.delete(
+        `https://nexora-1e3z.onrender.com/products/${productToDelete.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      }
-    );
+      );
 
-    toast.success(
-      "Produit supprimé avec succès"
-    );
+      toast.success("Produit supprimé avec succès");
+      closeDeleteModal();
+      loadProducts();
+    } catch (error) {
+      console.error(error);
+      toast.error("Impossible de supprimer ce produit");
+    }
+  };
 
-    loadProducts();
-
-  } catch (error) {
-
-    console.error(error);
-
-    toast.error(
-      "Impossible de supprimer ce produit"
-    );
-
-  }
-
-};
-
-const updateOrderStatus = async (id, status) => {
-  try {
-
-    await axios.patch(
-      `https://nexora-1e3z.onrender.com/orders/${id}/status`,
-      { status },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+  const updateOrderStatus = async (id, status) => {
+    try {
+      await axios.patch(
+        `https://nexora-1e3z.onrender.com/orders/${id}/status`,
+        { status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      }
-    );
+      );
 
-    loadOrders();
+      loadOrders();
+      toast.success("Statut mis à jour avec succès");
+    } catch (error) {
+      console.error(error);
+      toast.error("Erreur lors de la mise à jour");
+    }
+  };
 
-    toast.success(
-      "Statut mis à jour avec succès"
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    toast.error(
-      "Erreur lors de la mise à jour"
-    );
-
-  }
-};
   const logout = () => {
     localStorage.removeItem("nexoraToken");
     window.location.href = "/login";
@@ -441,7 +405,7 @@ const updateOrderStatus = async (id, status) => {
                         <button
                           type="button"
                           className="admin-delete-btn"
-                          onClick={() => deleteProduct(product.id)}
+                          onClick={() => openDeleteModal(product)}
                         >
                           Supprimer
                         </button>
@@ -484,7 +448,7 @@ const updateOrderStatus = async (id, status) => {
                   <button
                     type="button"
                     className="admin-mobile-delete"
-                    onClick={() => deleteProduct(product.id)}
+                    onClick={() => openDeleteModal(product)}
                   >
                     🗑
                   </button>
@@ -532,14 +496,14 @@ const updateOrderStatus = async (id, status) => {
                             )
                           }
                         >
-                      <option value="pending">Pending</option>
-                      <option value="paid">Paid</option>
-                      <option value="preparing">Preparing</option>
-                      <option value="shipped">Shipped</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="cancelled">Cancelled</option>
-                    </select>
-                            </td>
+                          <option value="pending">Pending</option>
+                          <option value="paid">Paid</option>
+                          <option value="preparing">Preparing</option>
+                          <option value="shipped">Shipped</option>
+                          <option value="delivered">Delivered</option>
+                          <option value="cancelled">Cancelled</option>
+                        </select>
+                      </td>
                       <td>{formatDate(order.created_at)}</td>
                     </tr>
                   );
@@ -569,23 +533,23 @@ const updateOrderStatus = async (id, status) => {
 
                   <div className="admin-mobile-order-total">
                     <span className="admin-status">
-                    <select
-                      className={`admin-status-select status-${order.status}`}
-                      value={order.status}
-                      onChange={(e) =>
-                        updateOrderStatus(
-                          order.id,
-                          e.target.value
-                        )
-                      }
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="paid">Paid</option>
-                      <option value="preparing">Preparing</option>
-                      <option value="shipped">Shipped</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="cancelled">Cancelled</option>
-                    </select>
+                      <select
+                        className={`admin-status-select status-${order.status}`}
+                        value={order.status}
+                        onChange={(e) =>
+                          updateOrderStatus(
+                            order.id,
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="paid">Paid</option>
+                        <option value="preparing">Preparing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
                     </span>
                     <strong>
                       {Number(order.total).toFixed(2)}€
@@ -696,6 +660,58 @@ const updateOrderStatus = async (id, status) => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModal && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal">
+            <div className="admin-modal-header">
+              <div>
+                <p>Suppression produit</p>
+                <h2>Supprimer ce produit ?</h2>
+              </div>
+
+              <button
+                type="button"
+                onClick={closeDeleteModal}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="admin-modal-form">
+              <p>
+                Voulez-vous vraiment supprimer{" "}
+                <strong>
+                  {productToDelete?.title}
+                </strong>
+                {" "}?
+              </p>
+
+              <p>
+                Cette action est définitive.
+              </p>
+
+              <div className="admin-modal-footer">
+                <button
+                  type="button"
+                  className="admin-modal-cancel"
+                  onClick={closeDeleteModal}
+                >
+                  Annuler
+                </button>
+
+                <button
+                  type="button"
+                  className="admin-modal-save"
+                  onClick={confirmDeleteProduct}
+                >
+                  Supprimer
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
