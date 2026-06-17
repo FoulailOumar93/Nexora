@@ -5,15 +5,23 @@ import Footer from "../components/Footer";
 
 function Support() {
 
-  const [openFAQ, setOpenFAQ] = useState(null);
+  const [openFAQ, setOpenFAQ] =
+    useState(null);
 
-  const [name, setName] = useState("");
+  const [name, setName] =
+    useState("");
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] =
+    useState("");
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] =
+    useState("");
 
-  const [ticketMessage, setTicketMessage] = useState("");
+  const [ticketMessage, setTicketMessage] =
+    useState("");
+
+  const [searchQuery, setSearchQuery] =
+    useState("");
 
   const faqs = [
 
@@ -66,7 +74,8 @@ function Support() {
 
     }
 
-    const ticketId = generateTicketId();
+    const ticketId =
+      generateTicketId();
 
     setTicketMessage(
       `Ticket #${ticketId} créé avec succès. Notre équipe vous répondra sous 24h.`
@@ -90,13 +99,11 @@ function Support() {
       <Navbar
         cartCount={0}
         setIsCartOpen={() => {}}
-        searchQuery=""
-        setSearchQuery={() => {}}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
 
       <main className="support-page">
-
-        {/* HERO */}
 
         <section className="support-hero">
 
@@ -109,8 +116,6 @@ function Support() {
           </p>
 
         </section>
-
-        {/* SUPPORT CARDS */}
 
         <section className="support-grid">
 
@@ -164,8 +169,6 @@ function Support() {
 
         </section>
 
-        {/* FAQ */}
-
         <section className="faq-section">
 
           <h2>
@@ -214,8 +217,6 @@ function Support() {
 
         </section>
 
-        {/* CONTACT */}
-
         <section className="contact-support">
 
           <h2>
@@ -260,8 +261,6 @@ function Support() {
             </button>
 
           </form>
-
-          {/* TICKET MESSAGE */}
 
           {ticketMessage && (
 
