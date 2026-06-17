@@ -4,7 +4,7 @@ import {
 } from "react";
 
 import "../styles/global.css";
-
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 import {
@@ -138,7 +138,7 @@ function Profile({
 
     if (unchanged) {
 
-      alert(
+      toast(
         "Aucune modification détectée"
       );
 
@@ -170,9 +170,9 @@ function Profile({
 
       await fetchUser();
 
-      alert(
-        "Profil mis à jour avec succès"
-      );
+      toast.success(
+      "Profil mis à jour avec succès"
+   );
 
       navigate("/member");
 
@@ -180,7 +180,7 @@ function Profile({
 
       console.error(error);
 
-      alert(
+      toast.error(
         "Erreur lors de la mise à jour"
       );
 
