@@ -1413,8 +1413,8 @@ a{
 
   background:
     linear-gradient(
-      rgba(0,0,0,0.45),
-      rgba(0,0,0,0.45)
+      rgba(0,0,0,0.55),
+      rgba(0,0,0,0.55)
     ),
     url("/images/Login/nexora-login-bg.png");
 
@@ -1427,40 +1427,43 @@ a{
   align-items:center;
 }
 
-@media (max-width:768px){
+@media (max-width: 768px){
 
   .auth-page{
-
-    background:
+    background-image:
       linear-gradient(
-        rgba(0,0,0,0.45),
-        rgba(0,0,0,0.45)
+        rgba(0,0,0,0.60),
+        rgba(0,0,0,0.60)
       ),
       url("/images/Login/nexora-login-bg-mobile.png");
+  }
 
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-
+  .auth-box{
+    width:90%;
   }
 
 }
-
 .auth-box{
-  background:rgba(0,0,0,0.75);
-  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.82);
+  backdrop-filter:blur(14px);
 
-  border:1px solid rgba(212,175,55,0.3);
+  border:1px solid rgba(212,175,55,0.35);
+
+  box-shadow:
+    0 0 40px rgba(0,0,0,0.5),
+    0 0 20px rgba(212,175,55,0.15);
 
   color:white;
 }
+
 .auth-box h1{
   font-size:3rem;
   margin-bottom:10px;
+  color:#fff;
 }
 
 .auth-box p{
-  color:#aaa;
+  color:#cfcfcf;
   margin-bottom:40px;
 }
 
