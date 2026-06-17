@@ -1,384 +1,87 @@
-import { useEffect, useState } from "react";
-import Profile from "./pages/Profile";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Toaster } from "react-hot-toast";
 import {
-  Routes,
-  Route
+  BrowserRouter
 } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Product from "./pages/Product";
-import Checkout from "./pages/Checkout";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Support from "./pages/Support";
-import Boutique from "./pages/Boutique";
-import ScrollToTop from "./components/ScrollToTop";
-import Cart from "./components/Cart";
-import Confirmation from "./pages/Confirmation";
-import Favoris from "./pages/Favoris";
-import MemberPage from "./pages/MemberPage";
-import Admin from "./pages/Admin";
-function App() {
+import App from "./App";
 
-  /* =========================
-     CART STATE
-  ========================= */
+import {
+  AuthProvider
+} from "./context/AuthContext";
 
-  const [cart, setCart] = useState(() => {
+import "./styles/global.css";
 
-    const savedCart =
-      localStorage.getItem("nexoraCart");
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
 
-    return savedCart
-      ? JSON.parse(savedCart)
-      : [];
+  <React.StrictMode>
 
-  });
-
-  /* =========================
-     CART DRAWER
-  ========================= */
-
-  const [isCartOpen, setIsCartOpen] =
-    useState(false);
+    <BrowserRouter>
 
-  /* =========================
-     NOTIFICATION
-  ========================= */
+      <AuthProvider>
 
-  const [notification, setNotification] =
-    useState("");
+        <Toaster
+          position="top-center"
+          toastOptions={{
 
-  /* =========================
-     SAVE CART
-  ========================= */
+            duration: 3000,
 
-  useEffect(() => {
+            style: {
 
-    localStorage.setItem(
-      "nexoraCart",
-      JSON.stringify(cart)
-    );
+              background: "#0f0f0f",
 
-  }, [cart]);
+              color: "#ffffff",
 
-  /* =========================
-     CART COUNT
-  ========================= */
+              border:
+                "1px solid rgba(212,175,55,0.4)",
 
-  const cartCount =
-    cart.reduce(
-      (total, item) =>
-        total + (item.quantity || 1),
-      0
-    );
-const [favorites, setFavorites] =
-  useState(() => {
+              borderRadius: "14px",
 
-    const savedFavorites =
-      localStorage.getItem(
-        "nexoraFavorites"
-      );
+              padding: "16px",
 
-    return savedFavorites
-      ? JSON.parse(savedFavorites)
-      : [];
+              minWidth: "350px",
 
-  });
+              boxShadow:
+                "0 0 25px rgba(212,175,55,0.15)"
 
-  useEffect(() => {
+            },
 
-  localStorage.setItem(
-    "nexoraFavorites",
-    JSON.stringify(favorites)
-  );
+            success: {
 
-}, [favorites]);
-  /* =========================
-     ADD TO CART
-  ========================= */
+              iconTheme: {
 
-  const addToCart = (product) => {
+                primary: "#22c55e",
 
-    setCart((prevCart) => {
+                secondary: "#ffffff"
 
-      const existingProductIndex =
-        prevCart.findIndex(
-
-          (item) =>
-
-            item.id === product.id &&
-            item.selectedSize ===
-              product.selectedSize &&
-            item.selectedColor ===
-              product.selectedColor
-
-        );
-
-      if (
-        existingProductIndex !== -1
-      ) {
-
-        const updatedCart =
-          [...prevCart];
-
-        updatedCart[
-          existingProductIndex
-        ] = {
-
-          ...updatedCart[
-            existingProductIndex
-          ],
-
-          quantity:
-            (
-              updatedCart[
-                existingProductIndex
-              ].quantity || 1
-            ) +
-            (product.quantity || 1)
-
-        };
-
-        return updatedCart;
-
-      }
-
-      return [
-
-        ...prevCart,
-
-        product
-
-      ];
-
-    });
-
-    setNotification(
-      `${product.title} ajouté au panier`
-    );
-
-    setTimeout(() => {
-
-      setNotification("");
-
-    }, 2500);
-
-  };
-
-  /* =========================
-     REMOVE ITEM
-  ========================= */
-
-  const removeFromCart = (
-    indexToRemove
-  ) => {
-
-    const updatedCart =
-      cart.filter(
-
-        (_, index) =>
-          index !== indexToRemove
-
-      );
-
-    setCart(updatedCart);
-
-  };
-
-  /* =========================
-     CLEAR CART
-  ========================= */
-
-  const clearCart = () => {
-
-    setCart([]);
-
-  };
-
-  return (
-
-    <>
-
-      {/* =========================
-          NOTIFICATION
-      ========================= */}
-
-      {notification && (
-
-        <div className="notification">
-
-          {notification}
-
-        </div>
-
-      )}
-
-      {/* =========================
-          ROUTES
-      ========================= */}
-      <ScrollToTop />
-      <Routes>
-      
-        {/* HOME */}
-        <Route
-          path="/"
-          element={
-            <Home
-              cartCount={cartCount}
-              setIsCartOpen={
-                setIsCartOpen
               }
-              addToCart={addToCart}
-            />
-          }
-        />
 
-        {/* PRODUCT */}
+            },
 
-        <Route
-          path="/product/:id"
-          element={
-            <Product
-              cartCount={cartCount}
-              setIsCartOpen={
-                setIsCartOpen
+            error: {
+
+              iconTheme: {
+
+                primary: "#ef4444",
+
+                secondary: "#ffffff"
+
               }
-              addToCart={addToCart}
-            />
-          }
+
+            }
+
+          }}
         />
 
-        {/* BOUTIQUE */}
+        <App />
 
-        <Route
-          path="/boutique"
-          element={
-            <Boutique
-              cartCount={cartCount}
-              setIsCartOpen={
-                setIsCartOpen
-              }
-              addToCart={addToCart}
-            />
-          }
-        />
+      </AuthProvider>
 
-        {/* BOUTIQUE CATEGORIES */}
+    </BrowserRouter>
 
-        <Route
-          path="/boutique/:category"
-          element={
-            <Boutique
-              cartCount={cartCount}
-              setIsCartOpen={
-                setIsCartOpen
-              }
-              addToCart={addToCart}
-            />
-          }
-        />
+  </React.StrictMode>
 
-       {/* CHECKOUT */}
-
-        <Route
-  path="/checkout"
-  element={
-    <Checkout
-      cartCount={cartCount}
-      setIsCartOpen={setIsCartOpen}
-    />
-  }
-/>
-
-        {/* CONFIRMATION */}
-
-        <Route
-        path="/confirmation"
-        element={
-        <Confirmation
-        setCart={setCart}
-      />
-  }
-/>
-
-        {/* LOGIN */}
-
-        <Route
-          path="/login"
-          element={<Login />}
-        />
-
-        {/* REGISTER */}
-
-        <Route
-          path="/register"
-          element={<Register />}
-        />
-
-        {/* SUPPORT */}
-
-        <Route
-          path="/support"
-          element={<Support />}
-        />
-       <Route
-          path="/member"
-          element={
-      <MemberPage
-       cartCount={cartCount}
-        setIsCartOpen={setIsCartOpen}
-      />
-  }
-/>
-
-<Route
-  path="/profile"
-  element={
-    <Profile
-      cartCount={cartCount}
-      setIsCartOpen={setIsCartOpen}
-    />
-  }
-/>
-        <Route
-        path="/admin"
-        element={<Admin />}
-       />
-          {/* Favoris */}
-
-     <Route
-  path="/favoris"
-  element={
-    <Favoris
-      cartCount={cartCount}
-      setIsCartOpen={setIsCartOpen}
-      addToCart={addToCart}
-    />
-    
-  }
-  
-/>
-          </Routes>
-
-      
-
-      {/* =========================
-          CART
-      ========================= */}
-
-      <Cart
-        cart={cart}
-        isCartOpen={isCartOpen}
-        setIsCartOpen={setIsCartOpen}
-        removeFromCart={removeFromCart}
-        clearCart={clearCart}
-      />
-
-    </>
-
-  );
-
-}
-
-export default App;
+);
