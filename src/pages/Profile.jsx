@@ -24,9 +24,10 @@ function Profile({
 }) {
 
   const {
-    user,
-    loading
-  } = useAuth();
+  user,
+  loading,
+  fetchUser
+} = useAuth();
 
   const navigate =
     useNavigate();
@@ -126,31 +127,28 @@ function Profile({
 
       try {
 
-        const token =
-          localStorage.getItem(
-            "nexoraToken"
-          );
-
         await axios.patch(
 
-          "https://nexora-1e3z.onrender.com/auth/me",
+  "https://nexora-1e3z.onrender.com/auth/me",
 
-          formData,
+  formData,
 
-          {
-            headers: {
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
+  {
+    headers: {
+      Authorization:
+        `Bearer ${token}`
+    }
+  }
 
-        );
+);
 
-        alert(
-          "Profil mis à jour avec succès"
-        );
+await fetchUser();
 
-        navigate("/member");
+alert(
+  "Profil mis à jour avec succès"
+);
+
+navigate("/member");
 
       } catch (error) {
 

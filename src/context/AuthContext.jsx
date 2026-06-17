@@ -23,45 +23,57 @@ export function AuthProvider({
   const [loading, setLoading] =
     useState(true);
 
-  useEffect(() => {
+  const fetchUser =
+    async () => {
 
-    const token =
-      localStorage.getItem(
-        "nexoraToken"
-      );
+      const token =
+        localStorage.getItem(
+          "nexoraToken"
+        );
 
-    if (!token) {
+      if (!token) {
 
-      setLoading(false);
+        return;
 
-      return;
+      }
 
-    }
+      try {
 
-    axios
-      .get(
-        `${API_URL}/auth/me`,
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      )
-      .then((response) => {
+        const response =
+          await axios.get(
+            `${API_URL}/auth/me`,
+            {
+              headers: {
+                Authorization:
+                  `Bearer ${token}`
+              }
+            }
+          );
 
         setUser(
           response.data
         );
 
-      })
-      .catch(() => {
+      } catch (error) {
+
+        console.error(
+          "Erreur récupération utilisateur :",
+          error
+        );
 
         localStorage.removeItem(
           "nexoraToken"
         );
 
-      })
+        setUser(null);
+
+      }
+
+    };
+
+  useEffect(() => {
+
+    fetchUser()
       .finally(() => {
 
         setLoading(false);
@@ -141,10 +153,13 @@ export function AuthProvider({
 
         setUser(user);
 
-       return {
-        success: true,
-        user
-       };
+        return {
+
+          success: true,
+
+          user
+
+        };
 
       } catch (error) {
 
@@ -181,7 +196,8 @@ export function AuthProvider({
         loading,
         register,
         login,
-        logout
+        logout,
+        fetchUser
       }}
     >
 
