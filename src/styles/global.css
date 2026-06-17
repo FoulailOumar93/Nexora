@@ -1416,7 +1416,7 @@ a{
       rgba(0,0,0,0.45),
       rgba(0,0,0,0.45)
     ),
-    url("/images/nexora-login-bg.png");
+    url("/images/Login/nexora-login-bg.png");
 
   background-size:cover;
   background-position:center;
@@ -1428,7 +1428,7 @@ a{
 }
 
 .auth-page{
-    background-image:url("/images/login-mobile.jpg");
+    background-image:url("/images/Login/login-mobile.jpg");
   }
 
 
