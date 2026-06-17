@@ -150,6 +150,8 @@ function Profile({
           "Profil mis à jour avec succès"
         );
 
+        navigate("/member");
+
       } catch (error) {
 
         console.error(error);
@@ -171,17 +173,7 @@ function Profile({
     );
 
   }
-        await axios.patch(
-        "https://nexora-1e3z.onrender.com/auth/me",
-        formData,
-        {
-            headers: {
-            Authorization: `Bearer ${token}`
-            }
-        }
-        );
 
-        navigate("/member");
   return (
 
     <>
@@ -273,9 +265,7 @@ function Profile({
             <button
               type="submit"
             >
-
               Enregistrer
-
             </button>
 
           </form>
