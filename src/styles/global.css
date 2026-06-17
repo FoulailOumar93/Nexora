@@ -1419,12 +1419,11 @@ a{
     url("/images/Login/nexora-login-bg.png");
 
   background-size:cover;
-  background-position:center;
+  background-position:right center;
   background-repeat:no-repeat;
 
   display:flex;
   align-items:center;
-
   justify-content:flex-start;
   padding-left:15%;
 }
@@ -1511,16 +1510,17 @@ a{
 }
 
 .auth-switch{
-  display:block;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
   margin-top:25px;
   color:#aaa;
-  text-align:center;
 }
-
 .auth-switch a{
   color:var(--gold);
-  margin-left:10px;
   text-decoration:none;
+  white-space:nowrap;
 }
 
 .auth-grid{
