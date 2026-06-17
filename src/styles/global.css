@@ -1426,6 +1426,12 @@ a{
   justify-content:center;
   align-items:center;
 }
+
+.auth-page{
+    background-image:url("/images/login-mobile.jpg");
+  }
+
+
 .auth-box{
   background:rgba(0,0,0,0.75);
   backdrop-filter:blur(10px);
