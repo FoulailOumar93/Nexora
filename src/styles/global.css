@@ -1427,10 +1427,24 @@ a{
   align-items:center;
 }
 
-.auth-page{
-    background-image:url("/images/Login/nexora-login-bg-mobile.png");
+@media (max-width:768px){
+
+  .auth-page{
+
+    background:
+      linear-gradient(
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.45)
+      ),
+      url("/images/Login/nexora-login-bg-mobile.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
   }
 
+}
 
 .auth-box{
   background:rgba(0,0,0,0.75);
