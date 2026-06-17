@@ -1445,6 +1445,8 @@ a{
   color:white;
 
   padding:40px;
+
+  align-items:center;
 }
 
 .auth-box h1{
