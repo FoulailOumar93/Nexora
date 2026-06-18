@@ -37,6 +37,28 @@ function ResetPassword() {
     setShowConfirmPassword
   ] = useState(false);
 
+  const passwordChecks = {
+
+    length:
+      password.length >= 12,
+
+    uppercase:
+      /[A-Z]/.test(password),
+
+    lowercase:
+      /[a-z]/.test(password),
+
+    number:
+      /\d/.test(password)
+
+  };
+
+  const score =
+    Object
+      .values(passwordChecks)
+      .filter(Boolean)
+      .length;
+
   const handleSubmit =
     async (e) => {
 
@@ -112,34 +134,6 @@ function ResetPassword() {
           Choisissez un nouveau mot de passe.
         </p>
 
-        <div className="password-rules">
-
-          <p>
-            Votre mot de passe doit contenir :
-          </p>
-
-          <ul>
-
-            <li>
-              Au moins 12 caractères
-            </li>
-
-            <li>
-              Une lettre majuscule
-            </li>
-
-            <li>
-              Une lettre minuscule
-            </li>
-
-            <li>
-              Un chiffre
-            </li>
-
-          </ul>
-
-        </div>
-
         <form
           className="auth-form"
           onSubmit={handleSubmit}
@@ -184,14 +178,88 @@ function ResetPassword() {
                 fontSize: "18px"
               }}
             >
-
               {showPassword
                 ? <FaEyeSlash />
                 : <FaEye />}
-
             </span>
 
           </div>
+
+          <div
+            className="strength-bar"
+            style={{
+              width: "100%",
+              height: "8px",
+              background: "#222",
+              borderRadius: "999px",
+              overflow: "hidden",
+              marginTop: "12px"
+            }}
+          >
+
+            <div
+              style={{
+                width: `${score * 25}%`,
+                height: "100%",
+                background: "#d4af37",
+                transition: "0.3s"
+              }}
+            />
+
+          </div>
+
+          <p
+            style={{
+              marginTop: "10px",
+              fontWeight: "600"
+            }}
+          >
+
+            {score <= 1 &&
+              "🔴 Mot de passe faible"}
+
+            {score === 2 &&
+              "🟠 Mot de passe moyen"}
+
+            {score >= 3 &&
+              "🟢 Mot de passe fort"}
+
+          </p>
+
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 0,
+              marginTop: "10px",
+              marginBottom: "15px"
+            }}
+          >
+
+            <li>
+              {passwordChecks.length
+                ? "✅"
+                : "❌"} Au moins 12 caractères
+            </li>
+
+            <li>
+              {passwordChecks.uppercase
+                ? "✅"
+                : "❌"} Une lettre majuscule
+            </li>
+
+            <li>
+              {passwordChecks.lowercase
+                ? "✅"
+                : "❌"} Une lettre minuscule
+            </li>
+
+            <li>
+              {passwordChecks.number
+                ? "✅"
+                : "❌"} Un chiffre
+            </li>
+
+          </ul>
 
           <div
             style={{
@@ -232,11 +300,9 @@ function ResetPassword() {
                 fontSize: "18px"
               }}
             >
-
               {showConfirmPassword
                 ? <FaEyeSlash />
                 : <FaEye />}
-
             </span>
 
           </div>
