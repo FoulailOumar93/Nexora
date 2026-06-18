@@ -8,10 +8,10 @@ const transporter =
       "smtp.gmail.com",
 
     port:
-      465,
+      587,
 
     secure:
-      true,
+      false,
 
     auth: {
 
@@ -23,14 +23,12 @@ const transporter =
 
     },
 
-    connectionTimeout:
-      30000,
+    tls: {
 
-    greetingTimeout:
-      30000,
+      rejectUnauthorized:
+        false
 
-    socketTimeout:
-      30000
+    }
 
   });
 
