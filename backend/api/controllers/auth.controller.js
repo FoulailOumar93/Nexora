@@ -433,7 +433,23 @@ async function forgotPassword(
         message:
           "Un lien a été envoyé pour réinitialiser le mot de passe"
       });
+        const info =
+          await transporter.sendMail({
+            from:
+              process.env.EMAIL_USER,
 
+            to:
+              user.email,
+
+            subject:
+              "Réinitialisation du mot de passe Nexora",
+
+            html: `
+              ...
+            `
+          });
+
+        console.log("Mail envoyé :", info.messageId);
     }
 
     const token =
