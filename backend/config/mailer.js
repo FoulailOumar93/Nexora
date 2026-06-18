@@ -1,11 +1,17 @@
 const nodemailer =
   require("nodemailer");
-console.log("EMAIL_USER =", process.env.EMAIL_USER);
-console.log("EMAIL_PASS présent =", !!process.env.EMAIL_PASS);
+
 const transporter =
   nodemailer.createTransport({
 
-    service: "gmail",
+    host:
+      "smtp.gmail.com",
+
+    port:
+      465,
+
+    secure:
+      true,
 
     auth: {
 
@@ -15,7 +21,16 @@ const transporter =
       pass:
         process.env.EMAIL_PASS
 
-    }
+    },
+
+    connectionTimeout:
+      30000,
+
+    greetingTimeout:
+      30000,
+
+    socketTimeout:
+      30000
 
   });
 
