@@ -431,31 +431,15 @@ async function forgotPassword(
 
       return res.json({
         message:
-          "Un lien a été envoyé pour réinitialiser le mot de passe"
+          "Si cet email existe, un lien a été envoyé."
       });
-        const info =
-          await transporter.sendMail({
-            from:
-              process.env.EMAIL_USER,
 
-            to:
-              user.email,
-
-            subject:
-              "Réinitialisation du mot de passe Nexora",
-
-            html: `
-              ...
-            `
-          });
-
-        console.log("Mail envoyé :", info.messageId);
     }
 
     const token =
-  require("crypto")
-    .randomBytes(32)
-    .toString("hex");
+      require("crypto")
+        .randomBytes(32)
+        .toString("hex");
 
     const expires =
       new Date(
@@ -473,50 +457,78 @@ async function forgotPassword(
 
     });
 
+    console.log(
+      "Token sauvegardé :",
+      token
+    );
+
     const resetLink =
       `${process.env.FRONTEND_URL}/reset-password/${token}`;
-    console.log("Envoi du mail à :", user.email);
-    await transporter.sendMail({
 
-      from:
-        process.env.EMAIL_USER,
+    console.log(
+      "Lien généré :",
+      resetLink
+    );
 
-      to:
-        user.email,
+    console.log(
+      "Envoi du mail à :",
+      user.email
+    );
 
-      subject:
-        "Réinitialisation du mot de passe Nexora",
+    const info =
+      await transporter.sendMail({
 
-      html: `
-        <h2>Nexora</h2>
+        from:
+          process.env.EMAIL_USER,
 
-        <p>
-          Cliquez sur le bouton ci-dessous
-          pour réinitialiser votre mot de passe.
-        </p>
+        to:
+          user.email,
 
-        <a
-          href="${resetLink}"
-          style="
-            background:#d4af37;
-            color:black;
-            padding:12px 20px;
-            text-decoration:none;
-            border-radius:8px;
-            display:inline-block;
-          "
-        >
-          Réinitialiser
-        </a>
+        subject:
+          "Réinitialisation du mot de passe Nexora",
 
-        <p>
-          Ce lien expire dans 30 minutes.
-        </p>
-      `
+        html: `
+          <h2>Nexora</h2>
 
-    });
+          <p>
+            Cliquez sur le bouton ci-dessous
+            pour réinitialiser votre mot de passe.
+          </p>
 
-    res.json({
+          <a
+            href="${resetLink}"
+            style="
+              background:#d4af37;
+              color:black;
+              padding:12px 20px;
+              text-decoration:none;
+              border-radius:8px;
+              display:inline-block;
+            "
+          >
+            Réinitialiser
+          </a>
+
+          <p>
+            Si le bouton ne fonctionne pas, copiez ce lien :
+          </p>
+
+          <p>
+            ${resetLink}
+          </p>
+
+          <p>
+            Ce lien expire dans 30 minutes.
+          </p>
+        `
+      });
+
+    console.log(
+      "Mail envoyé :",
+      info.messageId
+    );
+
+    return res.json({
 
       message:
         "Si cet email existe, un lien a été envoyé."
@@ -525,12 +537,17 @@ async function forgotPassword(
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Erreur forgotPassword :",
+      error
+    );
 
-    res.status(500).json({
-      message:
-        "Erreur serveur"
-    });
+    return res
+      .status(500)
+      .json({
+        message:
+          "Erreur lors de l'envoi du mail"
+      });
 
   }
 
@@ -612,7 +629,7 @@ async function resetPassword(
 
     });
 
-    res.json({
+    return res.json({
 
       message:
         "Mot de passe réinitialisé avec succès"
@@ -621,12 +638,17 @@ async function resetPassword(
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Erreur resetPassword :",
+      error
+    );
 
-    res.status(500).json({
-      message:
-        "Erreur serveur"
-    });
+    return res
+      .status(500)
+      .json({
+        message:
+          "Erreur serveur"
+      });
 
   }
 
