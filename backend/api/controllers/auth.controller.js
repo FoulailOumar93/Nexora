@@ -462,78 +462,21 @@ async function forgotPassword(
       token
     );
 
-    const resetLink =
-      `${process.env.FRONTEND_URL}/reset-password/${token}`;
+   const resetLink =
+  `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
-    console.log(
-      "Lien généré :",
-      resetLink
-    );
+console.log(
+  "Lien généré :",
+  resetLink
+);
 
-    console.log(
-      "Envoi du mail à :",
-      user.email
-    );
+return res.json({
 
-    const info =
-      await transporter.sendMail({
+  token,
 
-        from:
-          process.env.EMAIL_USER,
+  resetLink
 
-        to:
-          user.email,
-
-        subject:
-          "Réinitialisation du mot de passe Nexora",
-
-        html: `
-          <h2>Nexora</h2>
-
-          <p>
-            Cliquez sur le bouton ci-dessous
-            pour réinitialiser votre mot de passe.
-          </p>
-
-          <a
-            href="${resetLink}"
-            style="
-              background:#d4af37;
-              color:black;
-              padding:12px 20px;
-              text-decoration:none;
-              border-radius:8px;
-              display:inline-block;
-            "
-          >
-            Réinitialiser
-          </a>
-
-          <p>
-            Si le bouton ne fonctionne pas, copiez ce lien :
-          </p>
-
-          <p>
-            ${resetLink}
-          </p>
-
-          <p>
-            Ce lien expire dans 30 minutes.
-          </p>
-        `
-      });
-
-    console.log(
-      "Mail envoyé :",
-      info.messageId
-    );
-
-    return res.json({
-
-      message:
-        "Si cet email existe, un lien a été envoyé."
-
-    });
+});
 
   } catch (error) {
 

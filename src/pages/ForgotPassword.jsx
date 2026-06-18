@@ -1,12 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  useNavigate
+} from "react-router-dom";
 
 function ForgotPassword() {
 
   const [email, setEmail] =
     useState("");
+
+  const navigate =
+    useNavigate();
 
   const handleSubmit =
     async (e) => {
@@ -24,17 +30,19 @@ function ForgotPassword() {
           );
 
         toast.success(
-          response.data.message
+          "Lien de réinitialisation généré"
         );
 
-        setEmail("");
+        navigate(
+          `/reset-password/${response.data.token}`
+        );
 
       } catch (error) {
 
         console.error(error);
 
         toast.error(
-          "Erreur lors de l'envoi du mail"
+          "Erreur lors de la génération du lien"
         );
 
       }
@@ -81,7 +89,7 @@ function ForgotPassword() {
 
           <button type="submit">
 
-            Envoyer le lien
+            Continuer
 
           </button>
 
