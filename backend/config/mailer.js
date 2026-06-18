@@ -1,6 +1,7 @@
 const nodemailer =
   require("nodemailer");
-
+console.log("EMAIL_USER =", process.env.EMAIL_USER);
+console.log("EMAIL_PASS présent =", !!process.env.EMAIL_PASS);
 const transporter =
   nodemailer.createTransport({
 
