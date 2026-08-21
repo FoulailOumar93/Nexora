@@ -1,6 +1,3 @@
-const transporter =
-  require("../../config/mailer");
-
 const User =
   require("../models/user.model");
 

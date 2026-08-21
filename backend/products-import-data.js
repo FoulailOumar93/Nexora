@@ -3,7 +3,7 @@ module.exports = [
     id: 1,
     title: "Nike Hoodie",
     category: "hoodies",
-    price: "65,90",
+    price: 34.90,
     image: "/images/Hoodies/hoodie-black.png",
     sizes: ["S", "M", "L", "XL"],
     colors: {
@@ -19,7 +19,7 @@ module.exports = [
     id: 12,
     title: "Nexora Hoodie & Jogging Premium",
     category: "hoodies",
-    price: "89,90",
+    price: 49.90,
     image: "/images/Hoodies/nexora-hoodie-jogging-premium.png",
     sizes: ["S", "M", "L", "XL"],
     colors: {
@@ -37,7 +37,7 @@ module.exports = [
     id: 2,
     title: "Nexora Exclusive T-Shirt",
     category: "tshirts",
-    price: "35,90",
+    price: 19.90,
     image: "/images/T-Shirts/Nexora Exclusive T-Shirt.png",
     sizes: ["S", "M", "L", "XL"],
     colors: {
@@ -50,7 +50,7 @@ module.exports = [
     id: 3,
     title: "Nexora Classic Shirt",
     category: "chemises",
-    price: "49,90",
+    price: 29.90,
     image: "/images/Chemises/nexora-shirt.png",
     sizes: ["S", "M", "L", "XL"],
     colors: {
@@ -64,7 +64,7 @@ module.exports = [
     id: 4,
     title: "Nexora Tailored Pants",
     category: "pantalons",
-    price: "59,90",
+    price: 34.90,
     image: "/images/Pantalons/nexora-pants.png",
     sizes: [38, 40, 42, 44, 46],
     colors: {
@@ -78,7 +78,7 @@ module.exports = [
     id: 5,
     title: "Nexora Court Royale 2",
     category: "chaussures",
-    price: "75,90",
+    price: 44.90,
     image: "/images/Chaussures/nexora-court-royale-2.png",
     sizes: [39, 40, 41, 42, 43, 44],
     colors: {
@@ -91,7 +91,7 @@ module.exports = [
     id: 6,
     title: "Nexora Kanjivaram Silk Saree",
     category: "kanjivaram-silk",
-    price: "179,90",
+    price: 59.90,
     image: "/images/Sarees/Soft Silk Saree Collection/nexora-silk-saree.png",
     sizes: ["Free Size", "Ready to Wear"],
     blouseSizes: ["S", "M", "L", "XL"],
@@ -106,7 +106,7 @@ module.exports = [
     id: 7,
     title: "Nexora Cotton Saree",
     category: "cotton-silk",
-    price: "89,90",
+    price: 29.90,
     image: "/images/Sarees/Cotton Saree Collection/nexora-cotton-saree.png",
     sizes: ["Free Size", "Ready to Wear"],
     blouseSizes: ["S", "M", "L", "XL"],
@@ -121,7 +121,7 @@ module.exports = [
     id: 8,
     title: "Nexora Arani Silk Bridal Collection",
     category: "arani-silk",
-    price: "249,90",
+    price: 89.90,
     image: "/images/Sarees/Arani Silk Bridal Collection/nexora-arani-bridal-collection.png",
     sizes: ["Free Size", "Ready to Wear"],
     blouseSizes: ["S", "M", "L", "XL"],
@@ -139,7 +139,7 @@ module.exports = [
     id: 9,
     title: "Nexora Mysore Silk Festive Collection",
     category: "mysore-silk",
-    price: "169,90",
+    price: 54.90,
     image: "/images/Sarees/Mysore Silk Festive Collection/nexora-mysore-silk-festive-collection.png",
     sizes: ["Free Size", "Ready to Wear"],
     blouseSizes: ["S", "M", "L", "XL"],
@@ -157,7 +157,7 @@ module.exports = [
     id: 10,
     title: "Nexora Luxury Handbag Collection",
     category: "sacs",
-    price: "149,90",
+    price: 69.90,
     image: "/images/Sacs/nexora-bag-collection.png",
     sizes: ["Unique"],
     colors: {
@@ -194,7 +194,7 @@ module.exports = [
     category: "churidar",
     description:
       "Découvrez la Nexora Premium Cotton Churidar Collection, inspirée de l'élégance intemporelle du Tamil Nadu. Réalisée dans un coton premium doux, léger et respirant, cette collection associe tradition et modernité à travers des broderies raffinées et des finitions haut de gamme. Déclinée en Blanc Jasmin, Rose Pastel, Bleu Royal, Vert Émeraude, Bordeaux Royal et Noir Impérial, elle sublime chaque silhouette avec grâce. Une collection pensée pour les cérémonies, les fêtes et les occasions d'exception.",
-    price: "129,90",
+    price: 59.90,
     image: "/images/Churidars/nexora-churidar-collection.png",
     sizes: ["S", "M", "L", "XL", "XXL"],
     colors: {
@@ -211,7 +211,7 @@ module.exports = [
     id: 11,
     title: "Nexora Veshti & Shirt Collection",
     category: "veshti",
-    price: "89,90",
+    price: 49.90,
     image: "/images/Veshti/nexora-veshti-shirt-collection.png",
     sizes: ["Classic"],
     colors: {
